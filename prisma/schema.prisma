@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  shortName String?
+  city      String?
+  createdAt DateTime @default(now())
+  seasons   SeasonTeam[]
+  players   PlayerSeason[]
+}
+
+model Season {
+  id        String   @id @default(cuid())
+  label     String   @unique
+  startsAt  DateTime?
+  endsAt    DateTime?
+  createdAt DateTime @default(now())
+  teams     SeasonTeam[]
+  players   PlayerSeason[]
+}
+
+model SeasonTeam {
+  id       String @id @default(cuid())
+  teamId   String
+  seasonId String
+  team     Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, seasonId])
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  seasons   PlayerSeason[]
+
+  @@unique([name])
+}
+
+model PlayerSeason {
+  id        String   @id @default(cuid())
+  playerId  String
+  teamId    String
+  seasonId  String
+  position  PositionGroup
+  attack    Int
+  defense   Int
+  creative  Int
+  stamina   Int
+  player    Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  team      Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  season    Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@unique([playerId, teamId, seasonId])
+  @@index([teamId, seasonId, position])
+}
+
+model GameSession {
+  id          String      @id @default(cuid())
+  mode        GameMode
+  spinRule    SpinRule
+  formation   String
+  finalRating Int?
+  createdAt   DateTime    @default(now())
+  picks       DraftPick[]
+  result      SimulationResult?
+}
+
+model DraftPick {
+  id             String       @id @default(cuid())
+  gameSessionId  String
+  slotId         String
+  playerSeasonId String
+  pickOrder      Int
+  gameSession    GameSession  @relation(fields: [gameSessionId], references: [id], onDelete: Cascade)
+  playerSeason   PlayerSeason @relation(fields: [playerSeasonId], references: [id], onDelete: Restrict)
+
+  @@unique([gameSessionId, slotId])
+  @@unique([gameSessionId, pickOrder])
+}
+
+model SimulationResult {
+  id            String      @id @default(cuid())
+  gameSessionId String      @unique
+  wins          Int
+  draws         Int
+  losses        Int
+  points        Int
+  goalsFor      Int
+  goalsAgainst  Int
+  replacedTeam  String
+  createdAt     DateTime    @default(now())
+  gameSession   GameSession @relation(fields: [gameSessionId], references: [id], onDelete: Cascade)
+}
+
+enum PositionGroup {
+  GK
+  DEF
+  MID
+  FWD
+}
+
+enum GameMode {
+  normal
+  hard
+}
+
+enum SpinRule {
+  position
+  team
+}
