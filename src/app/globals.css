@@ -115,6 +115,117 @@ h2 {
   align-items: stretch;
 }
 
+.setup-screen {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 440px);
+  gap: 22px;
+  align-items: center;
+  min-height: calc(100vh - 180px);
+}
+
+.setup-copy {
+  max-width: 620px;
+}
+
+.setup-copy h2 {
+  max-width: 680px;
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  line-height: 0.98;
+}
+
+.setup-copy p:last-child {
+  max-width: 520px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.setup-card-large {
+  min-height: 430px;
+  align-content: start;
+}
+
+.start-button {
+  margin-top: 14px;
+}
+
+.draft-screen,
+.result-screen {
+  display: grid;
+  gap: 16px;
+}
+
+.draft-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 46px;
+}
+
+.mini-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.mini-metrics span {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.draft-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 390px) minmax(420px, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.draft-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 690px;
+}
+
+.result-screen {
+  grid-template-columns: minmax(340px, 0.9fr) minmax(360px, 0.75fr);
+  align-items: start;
+}
+
+.result-main {
+  min-height: 690px;
+}
+
+.result-side {
+  display: grid;
+  gap: 14px;
+}
+
+.result-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.ghost-button {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-weight: 800;
+}
+
 .control-panel,
 .result-panel {
   display: flex;
@@ -298,6 +409,11 @@ h2 {
 .pitch-panel,
 .pitch {
   min-height: 690px;
+}
+
+.pitch-panel-compact,
+.pitch-panel-compact .pitch {
+  min-height: 500px;
 }
 
 .pitch {
@@ -516,12 +632,17 @@ h2 {
 }
 
 @media (max-width: 1080px) {
-  .game-grid {
+  .game-grid,
+  .setup-screen,
+  .draft-layout,
+  .result-screen {
     grid-template-columns: 1fr;
   }
 
   .control-panel,
   .result-panel,
+  .draft-panel,
+  .result-main,
   .pitch-panel,
   .pitch {
     min-height: auto;
@@ -529,6 +650,10 @@ h2 {
 
   .pitch {
     aspect-ratio: 7 / 10;
+  }
+
+  .setup-screen {
+    min-height: auto;
   }
 }
 
@@ -545,6 +670,24 @@ h2 {
   .score-pill {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .draft-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mini-metrics {
+    justify-content: stretch;
+  }
+
+  .mini-metrics span {
+    flex: 1 1 110px;
+    text-align: center;
+  }
+
+  .result-actions {
+    grid-template-columns: 1fr;
   }
 
   .shirt-slot {

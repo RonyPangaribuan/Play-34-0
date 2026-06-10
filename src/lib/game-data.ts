@@ -1,4 +1,5 @@
 import type { FormationSlot, PlayerSeason } from "./types";
+import manualPlayerSeasons from "@/data/player-seasons.manual.json";
 
 export const formations: Record<string, FormationSlot[]> = {
   "433": [
@@ -79,7 +80,7 @@ export const teamPower2026: Record<string, number> = {
   "Semen Padang": 67,
 };
 
-export const players: PlayerSeason[] = [
+const seedPlayers: PlayerSeason[] = [
   player("Teja Paku Alam", "Persib", "2021/22", "GK", 18, 82, 44, 78),
   player("Nick Kuipers", "Persib", "2025/26", "DEF", 42, 86, 55, 81),
   player("Marc Klok", "Persib", "2023/24", "MID", 74, 69, 84, 83),
@@ -147,6 +148,21 @@ export const players: PlayerSeason[] = [
   player("Silvio Escobar", "Perseru", "2017", "FWD", 78, 42, 68, 76),
 ];
 
+export const players: PlayerSeason[] = mergePlayerData([
+  ...seedPlayers,
+  ...manualPlayerSeasons.map((player) => ({
+    id: player.id,
+    name: player.name,
+    team: player.team,
+    season: player.season,
+    group: player.group as PlayerSeason["group"],
+    attack: player.attack,
+    defense: player.defense,
+    creative: player.creative,
+    stamina: player.stamina,
+  })),
+]);
+
 function slot(id: string, label: string, x: number, y: number, group: FormationSlot["group"]): FormationSlot {
   return { id, label, x, y, group };
 }
@@ -172,4 +188,12 @@ function player(
     creative,
     stamina,
   };
+}
+
+function mergePlayerData(items: PlayerSeason[]) {
+  const map = new Map<string, PlayerSeason>();
+  for (const item of items) {
+    map.set(`${item.team}|${item.season}|${item.name}`, item);
+  }
+  return [...map.values()];
 }

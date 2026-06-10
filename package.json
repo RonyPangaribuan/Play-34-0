@@ -8,6 +8,7 @@
     "build": "next build",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "data:import:wikipedia": "node scripts/import-wikipedia-rosters.mjs",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev"
   },
