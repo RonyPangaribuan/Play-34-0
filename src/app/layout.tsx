@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "34-0 Draft XI Indonesia",
-  description: "Draft XI Liga Indonesia, spin klub-musim, dan simulasi 34 laga.",
+  description: "Game fan draft XI sepakbola Indonesia. Spin klub dan musim, draft pemain, lalu simulasikan 34 laga.",
 };
 
 export default function RootLayout({

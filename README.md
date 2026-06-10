@@ -17,7 +17,7 @@ npm install
 npm run dev
 ```
 
-Buka `http://localhost:3000/game`.
+Buka `http://localhost:3000` untuk landing page, atau `http://localhost:3000/game` untuk langsung masuk game.
 
 ## Data roster
 
@@ -42,6 +42,7 @@ Catatan: Wikipedia tidak punya halaman squad lengkap untuk semua klub-musim Liga
 ## Struktur penting
 
 - `src/app/game/page.tsx` halaman game
+- `src/app/page.tsx` landing page
 - `src/components/GameClient.tsx` UI dan state draft
 - `src/lib/game-data.ts` seed data klub, musim, formasi, dan pemain
 - `src/data/player-seasons.manual.json` roster tambahan terverifikasi
