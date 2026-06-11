@@ -857,6 +857,13 @@ h2 {
   margin-top: 14px;
 }
 
+.copy-feedback {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
 .ghost-button {
   min-height: 44px;
   padding: 0 14px;

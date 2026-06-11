@@ -159,16 +159,21 @@ export function SetupScreen({
           <OptionCard
             selected={includeGeneratedPlayers}
             title="Gunakan roster pelengkap"
-            text="Wheel boleh memakai data generated saat roster asli belum lengkap."
+            text="Membantu wheel tetap playable saat database verified/manual belum lengkap."
             onClick={() => onIncludeGeneratedPlayersChange(true)}
           />
           <OptionCard
             selected={!includeGeneratedPlayers}
             title="Verified/manual saja"
-            text="Wheel hanya memakai data pemain non-generated."
+            text="Mode data lebih serius: wheel hanya memakai pemain verified dan manual."
             onClick={() => onIncludeGeneratedPlayersChange(false)}
           />
         </div>
+        <p className="setup-helper">
+          {includeGeneratedPlayers
+            ? "Roster pelengkap membantu wheel tetap playable saat database belum lengkap. Data ini generated, bukan roster resmi lengkap."
+            : "Mode ini memakai data verified/manual saja agar draft terasa lebih serius dan terkurasi."}
+        </p>
       </SetupBlock>
 
       <SetupBlock title="Era">

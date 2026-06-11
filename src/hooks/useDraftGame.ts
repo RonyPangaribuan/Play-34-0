@@ -23,7 +23,7 @@ export function useDraftGame() {
   const [spinRule, setSpinRule] = useState<SpinRule>("team");
   const [ratingMode, setRatingMode] = useState<RatingMode>("season");
   const [eraPreset, setEraPreset] = useState<EraPreset>("modern");
-  const [includeGeneratedPlayers, setIncludeGeneratedPlayers] = useState(true);
+  const [includeGeneratedPlayers, setIncludeGeneratedPlayers] = useState(false);
   const [lineup, setLineup] = useState<Record<string, PlayerSeason>>({});
   const [spin, setSpin] = useState<SpinResult | null>(null);
   const [result, setResult] = useState<SimulationResult | null>(null);
@@ -60,8 +60,9 @@ export function useDraftGame() {
 
   function spinSlot() {
     if (!formation.length || complete) return;
-    if (spin && rerollsLeft <= 0) return;
-    if (spin) setRerollsLeft((current) => Math.max(0, current - 1));
+    const previousSpinHadChoices = !!spin?.choices.length;
+    if (previousSpinHadChoices && rerollsLeft <= 0) return;
+    if (previousSpinHadChoices) setRerollsLeft((current) => Math.max(0, current - 1));
     setSpin(spinDraftSlot({ formation, lineup, spinRule, seasonFilter: selectedSeasons, ratingMode, includeGeneratedPlayers }));
   }
 

@@ -38,6 +38,10 @@ export function DraftScreen({
   onSimulate,
   onBackToSetup,
 }: DraftScreenProps) {
+  const spinHasChoices = !!spin?.choices.length;
+  const spinIsEmpty = !!spin && !spinHasChoices;
+  const spinButtonDisabled = complete || (!!spin && spinHasChoices && rerollsLeft <= 0);
+
   return (
     <section className="draft-screen">
       <div className="draft-toolbar">
@@ -58,14 +62,16 @@ export function DraftScreen({
               <span id="positionBadge">{spinRule === "team" ? "TIM" : spin?.slotLabel?.replace(/[0-9]/g, "").slice(0, 3).toUpperCase() || "SET"}</span>
             </div>
             <div className="reel">
-              {spin ? (
+              {spinIsEmpty ? (
+                <span>Tidak ada kandidat<br />coba lagi atau ubah setup</span>
+              ) : spin ? (
                 <span>{spin.team}<br />{spin.season}<br />{spin.slotLabel}</span>
               ) : (
                 <span>{complete ? "XI siap disimulasikan" : "Tekan Spin"}</span>
               )}
             </div>
-            <button className="primary-button" type="button" disabled={complete || (!!spin && rerollsLeft <= 0)} onClick={onSpin}>
-              {spin ? "Reroll Slot" : "Spin Slot"}
+            <button className="primary-button" type="button" disabled={spinButtonDisabled} onClick={onSpin}>
+              {spinIsEmpty ? "Spin Lagi" : spin ? "Reroll Slot" : "Spin Slot"}
             </button>
           </div>
 
@@ -80,6 +86,11 @@ export function DraftScreen({
             {spin && (
               <>
                 <div className="choice-summary">{spin.choices.length} pemain tersedia</div>
+                {spinIsEmpty && (
+                  <div className="empty-state">
+                    {spin.unavailableReason ?? "Belum ada pemain yang cocok untuk pilihan ini. Coba spin lagi, ubah era, atau aktifkan roster pelengkap."}
+                  </div>
+                )}
                 {spin.choices.map((player) => {
                   const slotLabels = availableSlotLabels({ formation, lineup, player, spin, spinRule });
                   return (

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Pitch } from "@/components/game/Pitch";
 import { playerOverall, type RatingMode } from "@/lib/game-engine";
 import type { FormationSlot, PlayerSeason, SimulationResult } from "@/lib/types";
@@ -14,13 +15,21 @@ export type ResultScreenProps = {
 };
 
 export function ResultScreen({ formation, lineup, result, rating, chemistry, ratingMode, onPlayAgain, onRedraft }: ResultScreenProps) {
+  const [copyStatus, setCopyStatus] = useState<"idle" | "success" | "error">("idle");
   const achievement = getAchievement(result);
   const bestPlayer = getBestPlayer(lineup, ratingMode);
   const topScorer = getTopScorer(lineup, result);
   const shareText = buildShareText({ result, rating, chemistry, achievement, bestPlayer, topScorer });
 
   async function copyResult() {
-    await navigator.clipboard.writeText(shareText);
+    try {
+      if (!navigator.clipboard) throw new Error("Clipboard API tidak tersedia");
+      await navigator.clipboard.writeText(shareText);
+      setCopyStatus("success");
+    } catch {
+      window.prompt("Clipboard gagal. Salin hasil ini secara manual:", shareText);
+      setCopyStatus("error");
+    }
   }
 
   return (
@@ -35,10 +44,13 @@ export function ResultScreen({ formation, lineup, result, rating, chemistry, rat
           topScorer={topScorer}
         />
         <div className="result-actions">
-          <button className="primary-button" type="button" onClick={copyResult}>Copy hasil</button>
+          <button className="primary-button" type="button" onClick={copyResult}>
+            {copyStatus === "success" ? "Hasil disalin" : "Copy hasil"}
+          </button>
           <button className="primary-button" type="button" onClick={onRedraft}>Draft ulang</button>
           <button className="ghost-button" type="button" onClick={onPlayAgain}>Setup baru</button>
         </div>
+        {copyStatus === "error" && <p className="copy-feedback">Clipboard gagal. Gunakan teks manual yang muncul.</p>}
       </div>
 
       <div className="result-side">

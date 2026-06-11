@@ -26,15 +26,38 @@ export function spinDraftSlot(options: {
   }
 
   const target = options.spinRule === "position" ? randomItem(openSlots) : openSlots[0];
+  if (!target) {
+    return {
+      team: "",
+      season: "",
+      slotId: null,
+      slotLabel: "Tidak ada slot",
+      choices: [],
+      unavailableReason: "Tidak ada slot kosong yang bisa diisi.",
+    };
+  }
   const activeSeasons = options.seasonFilter?.length ? options.seasonFilter : seasons;
+  const includeGeneratedPlayers = options.includeGeneratedPlayers ?? false;
   const spin = randomSpinOutcome({
     target,
     openGroups: new Set(openSlots.map((slot) => slot.group)),
     lineup: options.lineup,
     spinRule: options.spinRule,
     activeSeasons,
-    includeGeneratedPlayers: options.includeGeneratedPlayers ?? true,
+    includeGeneratedPlayers,
   });
+  if (!spin) {
+    return {
+      team: "",
+      season: "",
+      slotId: options.spinRule === "position" ? target.id : null,
+      slotLabel: options.spinRule === "position" ? target.label : "Semua posisi",
+      choices: [],
+      unavailableReason: includeGeneratedPlayers
+        ? "Belum ada pemain yang cocok untuk slot ini pada rentang musim yang dipilih."
+        : "Belum ada pemain verified/manual yang cocok. Aktifkan roster pelengkap atau pilih era yang lebih luas.",
+    };
+  }
   const choices = buildChoices({
     target,
     team: spin.team,
@@ -44,7 +67,7 @@ export function spinDraftSlot(options: {
     spinRule: options.spinRule,
     activeSeasons,
     ratingMode: options.ratingMode ?? "season",
-    includeGeneratedPlayers: options.includeGeneratedPlayers ?? true,
+    includeGeneratedPlayers,
   });
 
   return {
@@ -52,6 +75,11 @@ export function spinDraftSlot(options: {
     slotId: options.spinRule === "position" ? target.id : null,
     slotLabel: options.spinRule === "position" ? target.label : "Semua posisi",
     choices,
+    unavailableReason: choices.length
+      ? undefined
+      : includeGeneratedPlayers
+        ? "Spin berhasil, tetapi tidak ada pemain yang cocok untuk slot kosong saat ini."
+        : "Spin berhasil, tetapi tidak ada pemain verified/manual yang cocok untuk slot kosong saat ini.",
   };
 }
 
@@ -179,14 +207,15 @@ function randomSpinOutcome(options: {
       .filter((team) => hasExactCandidate(team, season, options))
       .map((team) => ({ team, season })),
   );
-  return randomItem(
-    candidates.length
-      ? candidates
-      : playerPool
-        .filter((player) => options.activeSeasons.includes(player.season))
-        .map((player) => ({ team: player.team, season: player.season }))
-        .filter(uniqueSpinOutcome),
-  );
+  const fallback = playerPool
+    .filter((player) => {
+      const groupIsOpen = options.spinRule === "team" ? options.openGroups.has(player.group) : player.group === options.target.group;
+      return groupIsOpen && options.activeSeasons.includes(player.season) && !isDrafted(player, options.lineup);
+    })
+    .map((player) => ({ team: player.team, season: player.season }))
+    .filter(uniqueSpinOutcome);
+  const outcomes = candidates.length ? candidates : fallback;
+  return outcomes.length ? randomItem(outcomes) : null;
 }
 
 function hasExactCandidate(

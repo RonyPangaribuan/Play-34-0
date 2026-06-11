@@ -33,6 +33,7 @@ export type SpinResult = {
   slotId: string | null;
   slotLabel: string;
   choices: PlayerSeason[];
+  unavailableReason?: string;
 };
 
 export type TeamMetrics = {
