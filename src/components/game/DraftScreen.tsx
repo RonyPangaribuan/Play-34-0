@@ -40,7 +40,8 @@ export function DraftScreen({
 }: DraftScreenProps) {
   const spinHasChoices = !!spin?.choices.length;
   const spinIsEmpty = !!spin && !spinHasChoices;
-  const spinButtonDisabled = complete || (!!spin && spinHasChoices && rerollsLeft <= 0);
+  const spinButtonDisabled = complete || (!!spin && (spinHasChoices || spinIsEmpty) && rerollsLeft <= 0);
+  const emptySpinMessage = spin ? getEmptySpinMessage(spin, rerollsLeft) : "";
 
   return (
     <section className="draft-screen">
@@ -71,7 +72,7 @@ export function DraftScreen({
               )}
             </div>
             <button className="primary-button" type="button" disabled={spinButtonDisabled} onClick={onSpin}>
-              {spinIsEmpty ? "Spin Lagi" : spin ? "Reroll Slot" : "Spin Slot"}
+              {spinIsEmpty && rerollsLeft > 0 ? "Reroll Slot" : spinIsEmpty ? "Ubah setup dulu" : spin ? "Reroll Slot" : "Spin Slot"}
             </button>
           </div>
 
@@ -88,7 +89,7 @@ export function DraftScreen({
                 <div className="choice-summary">{spin.choices.length} pemain tersedia</div>
                 {spinIsEmpty && (
                   <div className="empty-state">
-                    {spin.unavailableReason ?? "Belum ada pemain yang cocok untuk pilihan ini. Coba spin lagi, ubah era, atau aktifkan roster pelengkap."}
+                    {emptySpinMessage}
                   </div>
                 )}
                 {spin.choices.map((player) => {
@@ -117,6 +118,14 @@ export function DraftScreen({
       </div>
     </section>
   );
+}
+
+function getEmptySpinMessage(spin: SpinResult, rerollsLeft: number) {
+  const reason = spin.unavailableReason ?? "Belum ada pemain yang cocok untuk pilihan ini.";
+  if (rerollsLeft > 0) {
+    return `${reason} Kamu masih punya ${rerollsLeft} reroll, coba reroll slot ini.`;
+  }
+  return `${reason} Kembali ke setup lalu aktifkan roster pelengkap atau pilih era yang lebih luas.`;
 }
 
 function availableSlotLabels({
