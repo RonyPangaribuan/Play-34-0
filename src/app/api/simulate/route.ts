@@ -12,13 +12,17 @@ const playerSchema = z.object({
   defense: z.number(),
   creative: z.number(),
   stamina: z.number(),
+  dataStatus: z.enum(["verified", "manual", "generated"]).default("manual"),
+  generated: z.boolean().optional(),
 });
 
 const bodySchema = z.object({
   lineup: z.record(z.string(), playerSchema),
+  ratingMode: z.enum(["season", "prime"]).optional(),
+  seed: z.string().optional(),
 });
 
 export async function POST(request: Request) {
   const body = bodySchema.parse(await request.json());
-  return NextResponse.json(simulateSeason(body.lineup));
+  return NextResponse.json(simulateSeason(body.lineup, body.ratingMode, body.seed));
 }

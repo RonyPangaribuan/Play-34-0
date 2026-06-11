@@ -1,4 +1,5 @@
 export type PlayerGroup = "GK" | "DEF" | "MID" | "FWD";
+export type PlayerDataStatus = "verified" | "manual" | "generated";
 
 export type FormationSlot = {
   id: string;
@@ -18,6 +19,8 @@ export type PlayerSeason = {
   defense: number;
   creative: number;
   stamina: number;
+  dataStatus: PlayerDataStatus;
+  generated?: boolean;
 };
 
 export type GameMode = "normal" | "hard";
@@ -50,6 +53,7 @@ export type MatchResult = {
 };
 
 export type SimulationResult = {
+  seed: string;
   wins: number;
   draws: number;
   losses: number;

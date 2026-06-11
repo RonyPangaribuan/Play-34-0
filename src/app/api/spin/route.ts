@@ -13,6 +13,8 @@ const playerSchema = z.object({
   defense: z.number(),
   creative: z.number(),
   stamina: z.number(),
+  dataStatus: z.enum(["verified", "manual", "generated"]).default("manual"),
+  generated: z.boolean().optional(),
 });
 
 const bodySchema = z.object({
@@ -20,6 +22,7 @@ const bodySchema = z.object({
   spinRule: z.enum(["position", "team"]),
   seasonFilter: z.array(z.string()).optional(),
   ratingMode: z.enum(["season", "prime"]).optional(),
+  includeGeneratedPlayers: z.boolean().optional(),
   lineup: z.record(z.string(), playerSchema),
 });
 
@@ -36,6 +39,7 @@ export async function POST(request: Request) {
       spinRule: body.spinRule,
       seasonFilter: body.seasonFilter,
       ratingMode: body.ratingMode,
+      includeGeneratedPlayers: body.includeGeneratedPlayers,
     }),
   );
 }

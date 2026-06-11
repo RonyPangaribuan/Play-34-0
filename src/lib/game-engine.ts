@@ -1,4 +1,5 @@
 import { liga1Teams2026, players, seasons, seasonTeams, teamPower2026 } from "./game-data";
+import { createSeededRandom, createSimulationSeed, type RandomGenerator } from "./random";
 import type { FormationSlot, MatchResult, PlayerGroup, PlayerSeason, SimulationResult, SpinResult, SpinRule, TeamMetrics } from "./types";
 
 export type RatingMode = "season" | "prime";
@@ -11,8 +12,19 @@ export function spinDraftSlot(options: {
   spinRule: SpinRule;
   seasonFilter?: string[];
   ratingMode?: RatingMode;
+  includeGeneratedPlayers?: boolean;
 }): SpinResult {
   const openSlots = options.formation.filter((slot) => !options.lineup[slot.id]);
+  if (!openSlots.length) {
+    return {
+      team: "",
+      season: "",
+      slotId: null,
+      slotLabel: "XI lengkap",
+      choices: [],
+    };
+  }
+
   const target = options.spinRule === "position" ? randomItem(openSlots) : openSlots[0];
   const activeSeasons = options.seasonFilter?.length ? options.seasonFilter : seasons;
   const spin = randomSpinOutcome({
@@ -21,6 +33,7 @@ export function spinDraftSlot(options: {
     lineup: options.lineup,
     spinRule: options.spinRule,
     activeSeasons,
+    includeGeneratedPlayers: options.includeGeneratedPlayers ?? true,
   });
   const choices = buildChoices({
     target,
@@ -31,6 +44,7 @@ export function spinDraftSlot(options: {
     spinRule: options.spinRule,
     activeSeasons,
     ratingMode: options.ratingMode ?? "season",
+    includeGeneratedPlayers: options.includeGeneratedPlayers ?? true,
   });
 
   return {
@@ -62,11 +76,7 @@ export function teamMetrics(lineup: Record<string, PlayerSeason>, ratingMode: Ra
   const rated = drafted.map((player) => (ratingMode === "prime" ? primeVersion(player) : player));
   const avg = (key: keyof Pick<PlayerSeason, "attack" | "defense" | "creative" | "stamina">) =>
     Math.round(rated.reduce((sum, player) => sum + player[key], 0) / rated.length);
-  const teamCounts = countBy(drafted, "team");
-  const seasonCounts = countBy(drafted, "season");
-  const sameTeamBonus = Math.max(...Object.values(teamCounts)) * 2;
-  const seasonSpreadBonus = Object.keys(seasonCounts).length * 3;
-  const chemistry = Math.min(100, 28 + sameTeamBonus + seasonSpreadBonus + drafted.length * 3);
+  const chemistry = calculateChemistry(drafted);
   const attack = avg("attack");
   const defense = avg("defense");
   const creative = avg("creative");
@@ -75,9 +85,28 @@ export function teamMetrics(lineup: Record<string, PlayerSeason>, ratingMode: Ra
   return { attack, defense, creative, chemistry, stamina, rating };
 }
 
-export function simulateSeason(lineup: Record<string, PlayerSeason>, ratingMode: RatingMode = "season"): SimulationResult {
+export function calculateChemistry(players: PlayerSeason[]) {
+  if (!players.length) return 0;
+
+  const teamCounts = countBy(players, "team");
+  const seasonCounts = countBy(players, "season");
+  const maxSameTeam = Math.max(...Object.values(teamCounts));
+  const maxSameSeason = Math.max(...Object.values(seasonCounts));
+
+  // Chemistry rewards a shared club core, a shared season core, and a small completed-XI bonus.
+  const base = 18;
+  const sameTeamBonus = maxSameTeam * 4;
+  const sameSeasonBonus = maxSameSeason * 3;
+  const progressBonus = Math.min(players.length, 11) * 2;
+  const completeBonus = players.length >= 11 ? 8 : 0;
+
+  return clamp(Math.round(base + sameTeamBonus + sameSeasonBonus + progressBonus + completeBonus), 0, 100);
+}
+
+export function simulateSeason(lineup: Record<string, PlayerSeason>, ratingMode: RatingMode = "season", seed = createSimulationSeed()): SimulationResult {
+  const random = createSeededRandom(seed);
   const metrics = teamMetrics(lineup, ratingMode);
-  const { opponents, replacedTeam } = buildSchedule(lineup);
+  const { opponents, replacedTeam } = buildSchedule(lineup, random);
   let wins = 0;
   let draws = 0;
   let losses = 0;
@@ -86,13 +115,13 @@ export function simulateSeason(lineup: Record<string, PlayerSeason>, ratingMode:
 
   const matches: MatchResult[] = opponents.map((match, index) => {
     const base = teamPower2026[match.team] ?? 72;
-    const opponentRating = clamp(base + Math.floor(Math.random() * 9) - 4, 62, 90);
+    const opponentRating = clamp(base + Math.floor(random() * 9) - 4, 62, 90);
     const homeBonus = match.home ? 3 : -2;
     const edge = metrics.rating - opponentRating + homeBonus;
     const attackPush = (metrics.attack + metrics.creative) / 2 - 70;
     const defensePush = metrics.defense - 70;
-    const forGoals = clamp(Math.round(1.3 + edge / 18 + attackPush / 24 + Math.random() * 2), 0, 6);
-    const againstGoals = clamp(Math.round(1.1 - edge / 24 - defensePush / 28 + Math.random() * 2), 0, 5);
+    const forGoals = clamp(Math.round(1.3 + edge / 18 + attackPush / 24 + random() * 2), 0, 6);
+    const againstGoals = clamp(Math.round(1.1 - edge / 24 - defensePush / 28 + random() * 2), 0, 5);
     gf += forGoals;
     ga += againstGoals;
     if (forGoals > againstGoals) wins += 1;
@@ -101,7 +130,7 @@ export function simulateSeason(lineup: Record<string, PlayerSeason>, ratingMode:
     return { matchday: index + 1, ...match, forGoals, againstGoals };
   });
 
-  return { wins, draws, losses, points: wins * 3 + draws, gf, ga, replacedTeam, matches };
+  return { seed, wins, draws, losses, points: wins * 3 + draws, gf, ga, replacedTeam, matches };
 }
 
 function buildChoices(options: {
@@ -113,9 +142,12 @@ function buildChoices(options: {
   spinRule: SpinRule;
   activeSeasons: string[];
   ratingMode: RatingMode;
+  includeGeneratedPlayers: boolean;
 }) {
+  const playerPool = filterByDataStatus(players, options.includeGeneratedPlayers);
+
   if (options.spinRule === "team") {
-    const roster = players.filter(
+    const roster = playerPool.filter(
       (player) => player.team === options.team && player.season === options.season && !isDrafted(player, options.lineup),
     );
     if (roster.length) return sortRoster(roster, options.ratingMode).filter(uniquePlayer);
@@ -124,12 +156,12 @@ function buildChoices(options: {
   const eligible = (player: PlayerSeason) => {
     return player.group === options.target.group && !isDrafted(player, options.lineup);
   };
-  const strict = players.filter((player) => eligible(player) && player.team === options.team && player.season === options.season);
+  const strict = playerPool.filter((player) => eligible(player) && player.team === options.team && player.season === options.season);
   if (strict.length) return sortRoster(strict, options.ratingMode).filter(uniquePlayer);
 
-  const sameTeam = players.filter((player) => eligible(player) && player.team === options.team && options.activeSeasons.includes(player.season));
-  const sameSeason = players.filter((player) => eligible(player) && player.season === options.season && options.activeSeasons.includes(player.season));
-  const fallback = players.filter((player) => eligible(player) && options.activeSeasons.includes(player.season) && seasonTeams[player.season]?.includes(player.team));
+  const sameTeam = playerPool.filter((player) => eligible(player) && player.team === options.team && options.activeSeasons.includes(player.season));
+  const sameSeason = playerPool.filter((player) => eligible(player) && player.season === options.season && options.activeSeasons.includes(player.season));
+  const fallback = playerPool.filter((player) => eligible(player) && options.activeSeasons.includes(player.season) && seasonTeams[player.season]?.includes(player.team));
   return sortRoster([...sameTeam, ...sameSeason, ...fallback].filter(uniquePlayer), options.ratingMode);
 }
 
@@ -139,7 +171,9 @@ function randomSpinOutcome(options: {
   lineup: Record<string, PlayerSeason>;
   spinRule: SpinRule;
   activeSeasons: string[];
+  includeGeneratedPlayers: boolean;
 }) {
+  const playerPool = filterByDataStatus(players, options.includeGeneratedPlayers);
   const candidates = options.activeSeasons.flatMap((season) =>
     (seasonTeams[season] ?? [])
       .filter((team) => hasExactCandidate(team, season, options))
@@ -148,7 +182,7 @@ function randomSpinOutcome(options: {
   return randomItem(
     candidates.length
       ? candidates
-      : players
+      : playerPool
         .filter((player) => options.activeSeasons.includes(player.season))
         .map((player) => ({ team: player.team, season: player.season }))
         .filter(uniqueSpinOutcome),
@@ -158,18 +192,21 @@ function randomSpinOutcome(options: {
 function hasExactCandidate(
   team: string,
   season: string,
-  options: { target: FormationSlot; openGroups: Set<PlayerGroup>; lineup: Record<string, PlayerSeason>; spinRule: SpinRule },
+  options: { target: FormationSlot; openGroups: Set<PlayerGroup>; lineup: Record<string, PlayerSeason>; spinRule: SpinRule; includeGeneratedPlayers: boolean },
 ) {
+  const playerPool = filterByDataStatus(players, options.includeGeneratedPlayers);
+
   if (options.spinRule === "team") {
-    return players.filter((player) => player.team === team && player.season === season && !isDrafted(player, options.lineup)).length >= minTeamRosterChoices;
+    const roster = playerPool.filter((player) => player.team === team && player.season === season && !isDrafted(player, options.lineup));
+    return roster.length >= minTeamRosterChoices && roster.some((player) => options.openGroups.has(player.group));
   }
 
-  return players.some((player) => {
+  return playerPool.some((player) => {
     return player.team === team && player.season === season && player.group === options.target.group && !isDrafted(player, options.lineup);
   });
 }
 
-function buildSchedule(lineup: Record<string, PlayerSeason>) {
+function buildSchedule(lineup: Record<string, PlayerSeason>, random: RandomGenerator) {
   const teamCounts = countBy(Object.values(lineup), "team");
   const dominantTeam = Object.entries(teamCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
   const replacedTeam = dominantTeam && liga1Teams2026.includes(dominantTeam) ? dominantTeam : liga1Teams2026[liga1Teams2026.length - 1];
@@ -179,7 +216,7 @@ function buildSchedule(lineup: Record<string, PlayerSeason>) {
       { team, home: true },
       { team, home: false },
     ]);
-  return { opponents: shuffle(opponents), replacedTeam };
+  return { opponents: shuffle(opponents, random), replacedTeam };
 }
 
 function sortRoster(roster: PlayerSeason[], ratingMode: RatingMode) {
@@ -195,6 +232,10 @@ function primeVersion(player: PlayerSeason) {
 
 function isDrafted(player: PlayerSeason, lineup: Record<string, PlayerSeason>) {
   return Object.values(lineup).some((drafted) => drafted.name === player.name);
+}
+
+function filterByDataStatus(playerPool: PlayerSeason[], includeGeneratedPlayers: boolean) {
+  return includeGeneratedPlayers ? playerPool : playerPool.filter((player) => player.dataStatus !== "generated" && !player.generated);
 }
 
 function uniquePlayer(player: PlayerSeason, index: number, list: PlayerSeason[]) {
@@ -216,8 +257,13 @@ function randomItem<T>(items: T[]): T {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function shuffle<T>(items: T[]) {
-  return [...items].sort(() => Math.random() - 0.5);
+function shuffle<T>(items: T[], random: RandomGenerator) {
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  return shuffled;
 }
 
 function clamp(value: number, min: number, max: number) {

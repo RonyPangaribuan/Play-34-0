@@ -1,4 +1,4 @@
-import type { FormationSlot, PlayerSeason } from "./types";
+import type { FormationSlot, PlayerDataStatus, PlayerGroup, PlayerSeason } from "./types";
 import manualPlayerSeasons from "@/data/player-seasons.manual.json";
 
 export const formations: Record<string, FormationSlot[]> = {
@@ -97,17 +97,52 @@ export const formations: Record<string, FormationSlot[]> = {
 
 export const seasons = ["2017", "2018", "2019", "2020", "2021/22", "2022/23", "2023/24", "2024/25", "2025/26"];
 
-export const seasonTeams: Record<string, string[]> = {
-  "2017": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Madura United", "Persib", "Persija", "PSM", "Semen Padang", "Sriwijaya FC", "Perseru"],
-  "2018": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Madura United", "Persebaya", "Persib", "Persija", "PSIS", "PSM", "Sriwijaya FC"],
-  "2019": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Madura United", "Persebaya", "Persib", "Persija", "PSS", "PSIS", "PSM", "Semen Padang", "Tira Persikabo"],
-  "2020": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Madura United", "Persebaya", "Persib", "Persija", "Persik", "Persita", "PSM", "PSS", "PSIS", "Tira Persikabo"],
-  "2021/22": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Madura United", "Persebaya", "Persib", "Persija", "Persik", "Persita", "PSM", "PSS", "PSIS", "Tira Persikabo"],
-  "2022/23": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Dewa United", "Madura United", "Persebaya", "Persib", "Persija", "Persik", "Persis", "Persita", "PSM", "PSS", "PSIS", "Tira Persikabo"],
-  "2023/24": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Dewa United", "Madura United", "Persebaya", "Persib", "Persija", "Persik", "Persis", "Persita", "Persikabo 1973", "PSM", "PSS", "PSIS"],
-  "2024/25": ["Arema", "Bali United", "Barito Putera", "Borneo Samarinda", "Dewa United", "Madura United", "Malut United", "Persebaya", "Persib", "Persija", "Persik", "Persis", "Persita", "PSBS", "PSIS", "PSM", "PSS", "Semen Padang"],
-  "2025/26": ["Arema", "Bali United", "Bhayangkara Presisi", "Borneo Samarinda", "Dewa United", "Madura United", "Malut United", "Persebaya", "Persib", "Persija", "Persijap", "Persik", "Persis", "Persita", "PSBS", "PSIM", "PSM", "Semen Padang"],
+export const teamNameAliases: Record<string, string> = {
+  "Arema F.C.": "Arema",
+  "Arema FC": "Arema",
+  "Bali United F.C.": "Bali United",
+  Bhayangkara: "Bhayangkara Presisi",
+  "Bhayangkara F.C.": "Bhayangkara Presisi",
+  "Bhayangkara Presisi Indonesia F.C.": "Bhayangkara Presisi",
+  Borneo: "Borneo Samarinda",
+  "Borneo F.C.": "Borneo Samarinda",
+  "Borneo Samarinda F.C.": "Borneo Samarinda",
+  "Dewa United F.C.": "Dewa United",
+  "Madura United F.C.": "Madura United",
+  "Malut United F.C.": "Malut United",
+  "Persebaya Surabaya": "Persebaya",
+  "Persib Bandung": "Persib",
+  "Persija Jakarta": "Persija",
+  "Persik Kediri": "Persik",
+  "Persis Solo": "Persis",
+  "Persita Tangerang": "Persita",
+  "Persijap Jepara": "Persijap",
+  "PSBS Biak": "PSBS",
+  "PSBS Biak Numfor": "PSBS",
+  "PSIM Yogyakarta": "PSIM",
+  "PSIS Semarang": "PSIS",
+  "PSM Makassar": "PSM",
+  "PSS Sleman": "PSS",
+  "Semen Padang F.C.": "Semen Padang",
+  Sriwijaya: "Sriwijaya FC",
 };
+
+// Daftar klub untuk spin wheel per musim, bukan roster resmi lengkap.
+const seasonTeamsFromImporter: Record<string, string[]> = {
+  "2017": ["Arema", "Bali United", "Barito Putera", "Bhayangkara", "Borneo", "Madura United", "Mitra Kukar", "Persegres", "Persela", "Perseru", "Persib Bandung", "Persiba Balikpapan", "Persija Jakarta", "Persipura Jayapura", "PS TNI", "PSM Makassar", "Semen Padang", "Sriwijaya"],
+  "2018": ["Arema", "Bali United", "Barito Putera", "Bhayangkara", "Borneo", "Madura United", "Mitra Kukar", "Persebaya Surabaya", "Persela", "Perseru", "Persib Bandung", "Persija Jakarta", "Persipura Jayapura", "PS TIRA", "PSIS Semarang", "PSM Makassar", "PSMS Medan", "Sriwijaya"],
+  "2019": ["Arema", "Bali United", "Barito Putera", "Bhayangkara", "Borneo", "Kalteng Putra", "Madura United", "Persebaya Surabaya", "Persela", "Perseru Badak Lampung", "Persib Bandung", "Persija Jakarta", "Persipura Jayapura", "PSS Sleman", "PSIS Semarang", "PSM Makassar", "Semen Padang", "Tira Persikabo"],
+  "2020": ["Arema", "Bali United", "Barito Putera", "Bhayangkara", "Borneo", "Madura United", "Persebaya Surabaya", "Persela", "Persib Bandung", "Persija Jakarta", "Persik Kediri", "Persipura Jayapura", "Persiraja Banda Aceh", "Persita Tangerang", "PSM Makassar", "PSS Sleman", "PSIS Semarang", "Tira Persikabo"],
+  "2021/22": ["Arema", "Bali United", "Barito Putera", "Bhayangkara", "Borneo", "Madura United", "Persebaya Surabaya", "Persela", "Persib Bandung", "Persija Jakarta", "Persik Kediri", "Persipura Jayapura", "Persiraja Banda Aceh", "Persita Tangerang", "PSM Makassar", "PSS Sleman", "PSIS Semarang", "Tira Persikabo"],
+  "2022/23": ["Arema", "Bali United", "Barito Putera", "Bhayangkara", "Borneo", "Dewa United", "Madura United", "Persebaya Surabaya", "Persib Bandung", "Persija Jakarta", "Persik Kediri", "Persis Solo", "Persita Tangerang", "PSM Makassar", "PSS Sleman", "PSIS Semarang", "RANS Nusantara", "Tira Persikabo"],
+  "2023/24": ["Arema", "Bali United", "Barito Putera", "Bhayangkara Presisi", "Borneo Samarinda", "Dewa United", "Madura United", "Persebaya Surabaya", "Persib Bandung", "Persija Jakarta", "Persik Kediri", "Persis Solo", "Persita Tangerang", "Persikabo 1973", "PSM Makassar", "PSS Sleman", "PSIS Semarang", "RANS Nusantara"],
+  "2024/25": ["Arema", "Bali United", "Barito Putera", "Borneo Samarinda", "Dewa United", "Madura United", "Malut United", "Persebaya Surabaya", "Persib Bandung", "Persija Jakarta", "Persik Kediri", "Persis Solo", "Persita Tangerang", "PSBS Biak", "PSIS Semarang", "PSM Makassar", "PSS Sleman", "Semen Padang"],
+  "2025/26": ["Arema", "Bali United", "Bhayangkara Presisi", "Borneo Samarinda", "Dewa United", "Madura United", "Malut United", "Persebaya Surabaya", "Persib Bandung", "Persija Jakarta", "Persijap Jepara", "Persik Kediri", "Persis Solo", "Persita Tangerang", "PSBS Biak", "PSIM Yogyakarta", "PSM Makassar", "Semen Padang"],
+};
+
+export const seasonTeams: Record<string, string[]> = Object.fromEntries(
+  Object.entries(seasonTeamsFromImporter).map(([season, teams]) => [season, teams.map(normalizeTeamName)]),
+);
 
 export const liga1Teams2026 = seasonTeams["2025/26"];
 
@@ -217,19 +252,26 @@ const seedPlayers: PlayerSeason[] = [
   player("Silvio Escobar", "Perseru", "2017", "FWD", 78, 42, 68, 76),
 ];
 
-export const players: PlayerSeason[] = mergePlayerData([
-  ...seedPlayers,
-  ...manualPlayerSeasons.map((player) => ({
+const manualJsonPlayers: PlayerSeason[] = manualPlayerSeasons.map((player) => {
+  const source = "source" in player ? player.source : undefined;
+  return {
     id: player.id,
     name: player.name,
-    team: player.team,
+    team: normalizeTeamName(player.team),
     season: player.season,
     group: player.group as PlayerSeason["group"],
     attack: player.attack,
     defense: player.defense,
     creative: player.creative,
     stamina: player.stamina,
-  })),
+    dataStatus: typeof source === "string" && source.length > 0 ? "verified" : "manual",
+  };
+});
+
+export const players: PlayerSeason[] = mergePlayerData([
+  ...buildRosterFillers([...seedPlayers, ...manualJsonPlayers]),
+  ...seedPlayers,
+  ...manualJsonPlayers,
 ]);
 
 function slot(id: string, label: string, x: number, y: number, group: FormationSlot["group"]): FormationSlot {
@@ -245,6 +287,7 @@ function player(
   defense: number,
   creative: number,
   stamina: number,
+  dataStatus: PlayerDataStatus = "manual",
 ): PlayerSeason {
   return {
     id: `${team}-${season}-${name}`.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
@@ -256,6 +299,8 @@ function player(
     defense,
     creative,
     stamina,
+    dataStatus,
+    generated: dataStatus === "generated" ? true : undefined,
   };
 }
 
@@ -265,4 +310,54 @@ function mergePlayerData(items: PlayerSeason[]) {
     map.set(`${item.team}|${item.season}|${item.name}`, item);
   }
   return [...map.values()];
+}
+
+function normalizeTeamName(team: string) {
+  return teamNameAliases[team] ?? team;
+}
+
+function buildRosterFillers(existingPlayers: PlayerSeason[]) {
+  const generated: PlayerSeason[] = [];
+  const rosterShape: Array<{ group: PlayerGroup; count: number; role: string }> = [
+    { group: "GK", count: 3, role: "Kiper" },
+    { group: "DEF", count: 7, role: "Bek" },
+    { group: "MID", count: 8, role: "Gelandang" },
+    { group: "FWD", count: 5, role: "Penyerang" },
+  ];
+
+  for (const season of seasons) {
+    for (const team of seasonTeams[season] ?? []) {
+      const teamSeasonPlayers = existingPlayers.filter((player) => player.team === team && player.season === season);
+      for (const shape of rosterShape) {
+        const currentCount = teamSeasonPlayers.filter((player) => player.group === shape.group).length;
+        for (let index = currentCount + 1; index <= shape.count; index += 1) {
+          generated.push(generatedPlayer(team, season, shape.group, shape.role, index));
+        }
+      }
+    }
+  }
+
+  return generated;
+}
+
+function generatedPlayer(team: string, season: string, group: PlayerGroup, role: string, index: number): PlayerSeason {
+  const power = teamPower2026[team] ?? 70;
+  const variation = stableNumber(`${team}-${season}-${group}-${index}`) % 9;
+  const base = Math.max(60, Math.min(78, power - 7 + variation));
+  const stats: Record<PlayerGroup, Pick<PlayerSeason, "attack" | "defense" | "creative" | "stamina">> = {
+    GK: { attack: 12 + (variation % 4), defense: base + 4, creative: 39 + variation, stamina: base },
+    DEF: { attack: 39 + variation, defense: base + 3, creative: 50 + variation, stamina: base + 2 },
+    MID: { attack: base - 3, defense: base - 4, creative: base + 5, stamina: base + 3 },
+    FWD: { attack: base + 7, defense: 38 + variation, creative: base - 1, stamina: base + 2 },
+  };
+
+  return player(`${role} Data Pelengkap ${team} ${season} ${index}`, team, season, group, stats[group].attack, stats[group].defense, stats[group].creative, stats[group].stamina, "generated");
+}
+
+function stableNumber(value: string) {
+  let hash = 0;
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
+  }
+  return hash;
 }
