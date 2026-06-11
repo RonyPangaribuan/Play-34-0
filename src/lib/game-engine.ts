@@ -1,18 +1,24 @@
 import { liga1Teams2026, players, seasons, seasonTeams, teamPower2026 } from "./game-data";
 import type { FormationSlot, MatchResult, PlayerGroup, PlayerSeason, SimulationResult, SpinResult, SpinRule, TeamMetrics } from "./types";
 
+export type RatingMode = "season" | "prime";
+
 export function spinDraftSlot(options: {
   formation: FormationSlot[];
   lineup: Record<string, PlayerSeason>;
   spinRule: SpinRule;
+  seasonFilter?: string[];
+  ratingMode?: RatingMode;
 }): SpinResult {
   const openSlots = options.formation.filter((slot) => !options.lineup[slot.id]);
   const target = options.spinRule === "position" ? randomItem(openSlots) : openSlots[0];
+  const activeSeasons = options.seasonFilter?.length ? options.seasonFilter : seasons;
   const spin = randomSpinOutcome({
     target,
     openGroups: new Set(openSlots.map((slot) => slot.group)),
     lineup: options.lineup,
     spinRule: options.spinRule,
+    activeSeasons,
   });
   const choices = buildChoices({
     target,
@@ -21,6 +27,8 @@ export function spinDraftSlot(options: {
     openGroups: new Set(openSlots.map((slot) => slot.group)),
     lineup: options.lineup,
     spinRule: options.spinRule,
+    activeSeasons,
+    ratingMode: options.ratingMode ?? "season",
   });
 
   return {
@@ -35,18 +43,23 @@ export function findSlotForPlayer(formation: FormationSlot[], lineup: Record<str
   return formation.find((slot) => !lineup[slot.id] && slot.group === player.group) ?? null;
 }
 
-export function playerOverall(player: PlayerSeason) {
+export function playerOverall(player: PlayerSeason, ratingMode: RatingMode = "season") {
+  return rawOverall(ratingMode === "prime" ? primeVersion(player) : player);
+}
+
+function rawOverall(player: PlayerSeason) {
   if (player.group === "GK") return Math.round(player.defense * 0.72 + player.stamina * 0.16 + player.creative * 0.12);
   if (player.group === "DEF") return Math.round(player.defense * 0.62 + player.creative * 0.18 + player.stamina * 0.12 + player.attack * 0.08);
   if (player.group === "MID") return Math.round(player.creative * 0.42 + player.defense * 0.22 + player.attack * 0.22 + player.stamina * 0.14);
   return Math.round(player.attack * 0.52 + player.creative * 0.28 + player.stamina * 0.14 + player.defense * 0.06);
 }
 
-export function teamMetrics(lineup: Record<string, PlayerSeason>): TeamMetrics {
+export function teamMetrics(lineup: Record<string, PlayerSeason>, ratingMode: RatingMode = "season"): TeamMetrics {
   const drafted = Object.values(lineup);
   if (!drafted.length) return { attack: 0, defense: 0, creative: 0, chemistry: 0, stamina: 0, rating: 0 };
+  const rated = drafted.map((player) => (ratingMode === "prime" ? primeVersion(player) : player));
   const avg = (key: keyof Pick<PlayerSeason, "attack" | "defense" | "creative" | "stamina">) =>
-    Math.round(drafted.reduce((sum, player) => sum + player[key], 0) / drafted.length);
+    Math.round(rated.reduce((sum, player) => sum + player[key], 0) / rated.length);
   const teamCounts = countBy(drafted, "team");
   const seasonCounts = countBy(drafted, "season");
   const sameTeamBonus = Math.max(...Object.values(teamCounts)) * 2;
@@ -60,8 +73,8 @@ export function teamMetrics(lineup: Record<string, PlayerSeason>): TeamMetrics {
   return { attack, defense, creative, chemistry, stamina, rating };
 }
 
-export function simulateSeason(lineup: Record<string, PlayerSeason>): SimulationResult {
-  const metrics = teamMetrics(lineup);
+export function simulateSeason(lineup: Record<string, PlayerSeason>, ratingMode: RatingMode = "season"): SimulationResult {
+  const metrics = teamMetrics(lineup, ratingMode);
   const { opponents, replacedTeam } = buildSchedule(lineup);
   let wins = 0;
   let draws = 0;
@@ -96,18 +109,26 @@ function buildChoices(options: {
   openGroups: Set<PlayerGroup>;
   lineup: Record<string, PlayerSeason>;
   spinRule: SpinRule;
+  activeSeasons: string[];
+  ratingMode: RatingMode;
 }) {
+  if (options.spinRule === "team") {
+    const roster = players.filter(
+      (player) => player.team === options.team && player.season === options.season && !isDrafted(player, options.lineup),
+    );
+    if (roster.length) return sortRoster(roster, options.ratingMode).filter(uniquePlayer);
+  }
+
   const eligible = (player: PlayerSeason) => {
-    const fitsOpenSlot = options.spinRule === "team" ? options.openGroups.has(player.group) : player.group === options.target.group;
-    return fitsOpenSlot && !isDrafted(player, options.lineup);
+    return player.group === options.target.group && !isDrafted(player, options.lineup);
   };
   const strict = players.filter((player) => eligible(player) && player.team === options.team && player.season === options.season);
-  if (strict.length) return sortRoster(strict).filter(uniquePlayer);
+  if (strict.length) return sortRoster(strict, options.ratingMode).filter(uniquePlayer);
 
-  const sameTeam = players.filter((player) => eligible(player) && player.team === options.team);
-  const sameSeason = players.filter((player) => eligible(player) && player.season === options.season);
-  const fallback = players.filter((player) => eligible(player) && seasonTeams[options.season]?.includes(player.team));
-  return sortRoster([...sameTeam, ...sameSeason, ...fallback].filter(uniquePlayer));
+  const sameTeam = players.filter((player) => eligible(player) && player.team === options.team && options.activeSeasons.includes(player.season));
+  const sameSeason = players.filter((player) => eligible(player) && player.season === options.season && options.activeSeasons.includes(player.season));
+  const fallback = players.filter((player) => eligible(player) && options.activeSeasons.includes(player.season) && seasonTeams[player.season]?.includes(player.team));
+  return sortRoster([...sameTeam, ...sameSeason, ...fallback].filter(uniquePlayer), options.ratingMode);
 }
 
 function randomSpinOutcome(options: {
@@ -115,13 +136,21 @@ function randomSpinOutcome(options: {
   openGroups: Set<PlayerGroup>;
   lineup: Record<string, PlayerSeason>;
   spinRule: SpinRule;
+  activeSeasons: string[];
 }) {
-  const candidates = seasons.flatMap((season) =>
+  const candidates = options.activeSeasons.flatMap((season) =>
     (seasonTeams[season] ?? [])
       .filter((team) => hasExactCandidate(team, season, options))
       .map((team) => ({ team, season })),
   );
-  return randomItem(candidates.length ? candidates : players.map((player) => ({ team: player.team, season: player.season })).filter(uniqueSpinOutcome));
+  return randomItem(
+    candidates.length
+      ? candidates
+      : players
+        .filter((player) => options.activeSeasons.includes(player.season))
+        .map((player) => ({ team: player.team, season: player.season }))
+        .filter(uniqueSpinOutcome),
+  );
 }
 
 function hasExactCandidate(
@@ -130,7 +159,7 @@ function hasExactCandidate(
   options: { target: FormationSlot; openGroups: Set<PlayerGroup>; lineup: Record<string, PlayerSeason>; spinRule: SpinRule },
 ) {
   return players.some((player) => {
-    const fitsRule = options.spinRule === "team" ? options.openGroups.has(player.group) : player.group === options.target.group;
+    const fitsRule = options.spinRule === "team" ? true : player.group === options.target.group;
     return player.team === team && player.season === season && fitsRule && !isDrafted(player, options.lineup);
   });
 }
@@ -148,9 +177,15 @@ function buildSchedule(lineup: Record<string, PlayerSeason>) {
   return { opponents: shuffle(opponents), replacedTeam };
 }
 
-function sortRoster(roster: PlayerSeason[]) {
+function sortRoster(roster: PlayerSeason[], ratingMode: RatingMode) {
   const order: Record<PlayerGroup, number> = { GK: 0, DEF: 1, MID: 2, FWD: 3 };
-  return [...roster].sort((a, b) => order[a.group] - order[b.group] || playerOverall(b) - playerOverall(a));
+  return [...roster].sort((a, b) => order[a.group] - order[b.group] || playerOverall(b, ratingMode) - playerOverall(a, ratingMode));
+}
+
+function primeVersion(player: PlayerSeason) {
+  return players
+    .filter((candidate) => candidate.name === player.name && candidate.group === player.group)
+    .sort((a, b) => rawOverall(b) - rawOverall(a))[0] ?? player;
 }
 
 function isDrafted(player: PlayerSeason, lineup: Record<string, PlayerSeason>) {

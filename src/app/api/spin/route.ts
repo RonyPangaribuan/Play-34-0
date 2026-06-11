@@ -18,6 +18,8 @@ const playerSchema = z.object({
 const bodySchema = z.object({
   formationKey: z.string(),
   spinRule: z.enum(["position", "team"]),
+  seasonFilter: z.array(z.string()).optional(),
+  ratingMode: z.enum(["season", "prime"]).optional(),
   lineup: z.record(z.string(), playerSchema),
 });
 
@@ -27,5 +29,13 @@ export async function POST(request: Request) {
   if (!formation) {
     return NextResponse.json({ error: "Formasi tidak ditemukan." }, { status: 400 });
   }
-  return NextResponse.json(spinDraftSlot({ formation, lineup: body.lineup, spinRule: body.spinRule }));
+  return NextResponse.json(
+    spinDraftSlot({
+      formation,
+      lineup: body.lineup,
+      spinRule: body.spinRule,
+      seasonFilter: body.seasonFilter,
+      ratingMode: body.ratingMode,
+    }),
+  );
 }

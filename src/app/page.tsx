@@ -64,7 +64,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <Link className="landing-primary" href="/game">
-              Mulai Run Baru →
+              Mulai
             </Link>
             <Link className="landing-secondary" href="/game">
               Lanjutkan Draft

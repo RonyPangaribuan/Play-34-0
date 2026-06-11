@@ -1,4 +1,4 @@
-import type { FormationSlot, PlayerSeason } from "./types";
+import type { FormationSlot, PlayerGroup, PlayerSeason } from "./types";
 import manualPlayerSeasons from "@/data/player-seasons.manual.json";
 
 export const formations: Record<string, FormationSlot[]> = {
@@ -15,6 +15,19 @@ export const formations: Record<string, FormationSlot[]> = {
     slot("ST", "Striker", 50, 15, "FWD"),
     slot("RW", "Right Wing", 80, 22, "FWD"),
   ],
+  "442": [
+    slot("GK", "Goalkeeper", 50, 92, "GK"),
+    slot("LB", "Left Back", 18, 74, "DEF"),
+    slot("CB1", "Centre Back", 38, 72, "DEF"),
+    slot("CB2", "Centre Back", 62, 72, "DEF"),
+    slot("RB", "Right Back", 82, 74, "DEF"),
+    slot("LM", "Left Mid", 20, 48, "MID"),
+    slot("CM1", "Central Mid", 40, 48, "MID"),
+    slot("CM2", "Central Mid", 60, 48, "MID"),
+    slot("RM", "Right Mid", 80, 48, "MID"),
+    slot("ST1", "Striker", 40, 18, "FWD"),
+    slot("ST2", "Striker", 60, 18, "FWD"),
+  ],
   "4231": [
     slot("GK", "Goalkeeper", 50, 92, "GK"),
     slot("LB", "Left Back", 18, 74, "DEF"),
@@ -28,6 +41,32 @@ export const formations: Record<string, FormationSlot[]> = {
     slot("RAM", "Right Attacking Mid", 75, 34, "MID"),
     slot("ST", "Striker", 50, 15, "FWD"),
   ],
+  "451": [
+    slot("GK", "Goalkeeper", 50, 92, "GK"),
+    slot("LB", "Left Back", 18, 74, "DEF"),
+    slot("CB1", "Centre Back", 38, 72, "DEF"),
+    slot("CB2", "Centre Back", 62, 72, "DEF"),
+    slot("RB", "Right Back", 82, 74, "DEF"),
+    slot("DM", "Defensive Mid", 50, 58, "MID"),
+    slot("LM", "Left Mid", 18, 43, "MID"),
+    slot("CM1", "Central Mid", 38, 42, "MID"),
+    slot("CM2", "Central Mid", 62, 42, "MID"),
+    slot("RM", "Right Mid", 82, 43, "MID"),
+    slot("ST", "Striker", 50, 16, "FWD"),
+  ],
+  "343": [
+    slot("GK", "Goalkeeper", 50, 92, "GK"),
+    slot("LCB", "Left Centre Back", 30, 72, "DEF"),
+    slot("CB", "Centre Back", 50, 73, "DEF"),
+    slot("RCB", "Right Centre Back", 70, 72, "DEF"),
+    slot("LM", "Left Mid", 18, 51, "MID"),
+    slot("CM1", "Central Mid", 40, 49, "MID"),
+    slot("CM2", "Central Mid", 60, 49, "MID"),
+    slot("RM", "Right Mid", 82, 51, "MID"),
+    slot("LW", "Left Wing", 23, 20, "FWD"),
+    slot("ST", "Striker", 50, 15, "FWD"),
+    slot("RW", "Right Wing", 77, 20, "FWD"),
+  ],
   "352": [
     slot("GK", "Goalkeeper", 50, 92, "GK"),
     slot("LCB", "Left Centre Back", 30, 72, "DEF"),
@@ -40,6 +79,19 @@ export const formations: Record<string, FormationSlot[]> = {
     slot("RWB", "Right Wing Back", 84, 51, "DEF"),
     slot("ST1", "Striker", 40, 17, "FWD"),
     slot("ST2", "Striker", 60, 17, "FWD"),
+  ],
+  "541": [
+    slot("GK", "Goalkeeper", 50, 92, "GK"),
+    slot("LWB", "Left Wing Back", 12, 70, "DEF"),
+    slot("LCB", "Left Centre Back", 32, 73, "DEF"),
+    slot("CB", "Centre Back", 50, 75, "DEF"),
+    slot("RCB", "Right Centre Back", 68, 73, "DEF"),
+    slot("RWB", "Right Wing Back", 88, 70, "DEF"),
+    slot("LM", "Left Mid", 22, 46, "MID"),
+    slot("CM1", "Central Mid", 42, 44, "MID"),
+    slot("CM2", "Central Mid", 58, 44, "MID"),
+    slot("RM", "Right Mid", 78, 46, "MID"),
+    slot("ST", "Striker", 50, 17, "FWD"),
   ],
 };
 
@@ -148,7 +200,7 @@ const seedPlayers: PlayerSeason[] = [
   player("Silvio Escobar", "Perseru", "2017", "FWD", 78, 42, 68, 76),
 ];
 
-export const players: PlayerSeason[] = mergePlayerData([
+const verifiedPlayers: PlayerSeason[] = mergePlayerData([
   ...seedPlayers,
   ...manualPlayerSeasons.map((player) => ({
     id: player.id,
@@ -161,6 +213,11 @@ export const players: PlayerSeason[] = mergePlayerData([
     creative: player.creative,
     stamina: player.stamina,
   })),
+]);
+
+export const players: PlayerSeason[] = mergePlayerData([
+  ...buildRosterFillers(verifiedPlayers),
+  ...verifiedPlayers,
 ]);
 
 function slot(id: string, label: string, x: number, y: number, group: FormationSlot["group"]): FormationSlot {
@@ -196,4 +253,58 @@ function mergePlayerData(items: PlayerSeason[]) {
     map.set(`${item.team}|${item.season}|${item.name}`, item);
   }
   return [...map.values()];
+}
+
+function buildRosterFillers(existingPlayers: PlayerSeason[]) {
+  const generated: PlayerSeason[] = [];
+  const rosterShape: Array<{ group: PlayerGroup; count: number; role: string }> = [
+    { group: "GK", count: 3, role: "Kiper" },
+    { group: "DEF", count: 7, role: "Bek" },
+    { group: "MID", count: 8, role: "Gelandang" },
+    { group: "FWD", count: 5, role: "Penyerang" },
+  ];
+
+  for (const season of seasons) {
+    for (const team of seasonTeams[season] ?? []) {
+      const teamSeasonPlayers = existingPlayers.filter((player) => player.team === team && player.season === season);
+      for (const shape of rosterShape) {
+        const currentCount = teamSeasonPlayers.filter((player) => player.group === shape.group).length;
+        for (let index = currentCount + 1; index <= shape.count; index += 1) {
+          generated.push(generatedPlayer(team, season, shape.group, shape.role, index));
+        }
+      }
+    }
+  }
+
+  return generated;
+}
+
+function generatedPlayer(team: string, season: string, group: PlayerGroup, role: string, index: number): PlayerSeason {
+  const power = teamPower2026[team] ?? 70;
+  const variation = stableNumber(`${team}-${season}-${group}-${index}`) % 9;
+  const base = Math.max(60, Math.min(78, power - 7 + variation));
+  const stats: Record<PlayerGroup, Pick<PlayerSeason, "attack" | "defense" | "creative" | "stamina">> = {
+    GK: { attack: 12 + (variation % 4), defense: base + 4, creative: 39 + variation, stamina: base },
+    DEF: { attack: 39 + variation, defense: base + 3, creative: 50 + variation, stamina: base + 2 },
+    MID: { attack: base - 3, defense: base - 4, creative: base + 5, stamina: base + 3 },
+    FWD: { attack: base + 7, defense: 38 + variation, creative: base - 1, stamina: base + 2 },
+  };
+
+  return {
+    id: `${team}-${season}-${role}-${index}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+    name: `${role} Rotasi ${team} ${season} ${index}`,
+    team,
+    season,
+    group,
+    ...stats[group],
+    generated: true,
+  };
+}
+
+function stableNumber(value: string) {
+  let hash = 0;
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
+  }
+  return hash;
 }
