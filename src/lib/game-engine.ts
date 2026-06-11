@@ -3,6 +3,8 @@ import type { FormationSlot, MatchResult, PlayerGroup, PlayerSeason, SimulationR
 
 export type RatingMode = "season" | "prime";
 
+const minTeamRosterChoices = 8;
+
 export function spinDraftSlot(options: {
   formation: FormationSlot[];
   lineup: Record<string, PlayerSeason>;
@@ -158,9 +160,12 @@ function hasExactCandidate(
   season: string,
   options: { target: FormationSlot; openGroups: Set<PlayerGroup>; lineup: Record<string, PlayerSeason>; spinRule: SpinRule },
 ) {
+  if (options.spinRule === "team") {
+    return players.filter((player) => player.team === team && player.season === season && !isDrafted(player, options.lineup)).length >= minTeamRosterChoices;
+  }
+
   return players.some((player) => {
-    const fitsRule = options.spinRule === "team" ? true : player.group === options.target.group;
-    return player.team === team && player.season === season && fitsRule && !isDrafted(player, options.lineup);
+    return player.team === team && player.season === season && player.group === options.target.group && !isDrafted(player, options.lineup);
   });
 }
 

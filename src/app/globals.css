@@ -1056,16 +1056,6 @@ h2 {
   font-weight: 800;
 }
 
-.slot-fit-row small {
-  padding: 4px 7px;
-  border: 1px solid rgba(245, 189, 69, 0.28);
-  border-radius: 999px;
-  color: var(--gold);
-  font-size: 0.68rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
 .stat-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

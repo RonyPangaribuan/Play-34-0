@@ -18,7 +18,6 @@ export type PlayerSeason = {
   defense: number;
   creative: number;
   stamina: number;
-  generated?: boolean;
 };
 
 export type GameMode = "normal" | "hard";

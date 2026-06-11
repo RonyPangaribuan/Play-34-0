@@ -1,4 +1,4 @@
-import type { FormationSlot, PlayerGroup, PlayerSeason } from "./types";
+import type { FormationSlot, PlayerSeason } from "./types";
 import manualPlayerSeasons from "@/data/player-seasons.manual.json";
 
 export const formations: Record<string, FormationSlot[]> = {
@@ -191,6 +191,23 @@ const seedPlayers: PlayerSeason[] = [
   player("Borja Herrera", "Persijap", "2025/26", "MID", 72, 60, 82, 77),
   player("Ruyery Blanco", "PSBS", "2025/26", "FWD", 78, 42, 73, 79),
   player("Vendry Mofu", "Semen Padang", "2017", "MID", 70, 61, 78, 76),
+  player("Arthur Augusto", "Semen Padang", "2024/25", "GK", 12, 75, 40, 74),
+  player("Miswar Saputra", "Semen Padang", "2024/25", "GK", 13, 72, 42, 73),
+  player("Teguh Amiruddin", "Semen Padang", "2024/25", "GK", 12, 71, 41, 72),
+  player("Marco Baixinho", "Semen Padang", "2024/25", "DEF", 43, 78, 54, 72),
+  player("Tin Martic", "Semen Padang", "2024/25", "DEF", 42, 76, 55, 74),
+  player("Kim Min-gyu", "Semen Padang", "2024/25", "DEF", 44, 74, 56, 75),
+  player("Novrianto", "Semen Padang", "2024/25", "DEF", 40, 72, 52, 71),
+  player("Dodi Alekvan Djin", "Semen Padang", "2024/25", "DEF", 46, 71, 55, 75),
+  player("Bruno Gomes", "Semen Padang", "2024/25", "MID", 68, 68, 74, 75),
+  player("Alhassan Wakaso", "Semen Padang", "2024/25", "MID", 64, 72, 70, 76),
+  player("Charlie Scott", "Semen Padang", "2024/25", "MID", 67, 66, 73, 74),
+  player("Bruno Dybal", "Semen Padang", "2024/25", "MID", 74, 55, 80, 72),
+  player("Filipe Chaby", "Semen Padang", "2024/25", "MID", 72, 56, 79, 73),
+  player("Ryohei Michibuchi", "Semen Padang", "2024/25", "FWD", 76, 45, 75, 78),
+  player("Cornelius Stewart", "Semen Padang", "2024/25", "FWD", 78, 43, 70, 75),
+  player("Kenneth Ngwoke", "Semen Padang", "2024/25", "FWD", 79, 42, 69, 74),
+  player("Jan Carlos Vargas", "Semen Padang", "2024/25", "FWD", 76, 44, 68, 73),
   player("Arthur", "Semen Padang", "2025/26", "GK", 12, 75, 40, 74),
   player("Rizky Pora", "Barito Putera", "2017", "MID", 73, 58, 82, 80),
   player("Wallace Costa", "PSIS", "2019", "DEF", 42, 82, 55, 74),
@@ -200,7 +217,7 @@ const seedPlayers: PlayerSeason[] = [
   player("Silvio Escobar", "Perseru", "2017", "FWD", 78, 42, 68, 76),
 ];
 
-const verifiedPlayers: PlayerSeason[] = mergePlayerData([
+export const players: PlayerSeason[] = mergePlayerData([
   ...seedPlayers,
   ...manualPlayerSeasons.map((player) => ({
     id: player.id,
@@ -213,11 +230,6 @@ const verifiedPlayers: PlayerSeason[] = mergePlayerData([
     creative: player.creative,
     stamina: player.stamina,
   })),
-]);
-
-export const players: PlayerSeason[] = mergePlayerData([
-  ...buildRosterFillers(verifiedPlayers),
-  ...verifiedPlayers,
 ]);
 
 function slot(id: string, label: string, x: number, y: number, group: FormationSlot["group"]): FormationSlot {
@@ -253,58 +265,4 @@ function mergePlayerData(items: PlayerSeason[]) {
     map.set(`${item.team}|${item.season}|${item.name}`, item);
   }
   return [...map.values()];
-}
-
-function buildRosterFillers(existingPlayers: PlayerSeason[]) {
-  const generated: PlayerSeason[] = [];
-  const rosterShape: Array<{ group: PlayerGroup; count: number; role: string }> = [
-    { group: "GK", count: 3, role: "Kiper" },
-    { group: "DEF", count: 7, role: "Bek" },
-    { group: "MID", count: 8, role: "Gelandang" },
-    { group: "FWD", count: 5, role: "Penyerang" },
-  ];
-
-  for (const season of seasons) {
-    for (const team of seasonTeams[season] ?? []) {
-      const teamSeasonPlayers = existingPlayers.filter((player) => player.team === team && player.season === season);
-      for (const shape of rosterShape) {
-        const currentCount = teamSeasonPlayers.filter((player) => player.group === shape.group).length;
-        for (let index = currentCount + 1; index <= shape.count; index += 1) {
-          generated.push(generatedPlayer(team, season, shape.group, shape.role, index));
-        }
-      }
-    }
-  }
-
-  return generated;
-}
-
-function generatedPlayer(team: string, season: string, group: PlayerGroup, role: string, index: number): PlayerSeason {
-  const power = teamPower2026[team] ?? 70;
-  const variation = stableNumber(`${team}-${season}-${group}-${index}`) % 9;
-  const base = Math.max(60, Math.min(78, power - 7 + variation));
-  const stats: Record<PlayerGroup, Pick<PlayerSeason, "attack" | "defense" | "creative" | "stamina">> = {
-    GK: { attack: 12 + (variation % 4), defense: base + 4, creative: 39 + variation, stamina: base },
-    DEF: { attack: 39 + variation, defense: base + 3, creative: 50 + variation, stamina: base + 2 },
-    MID: { attack: base - 3, defense: base - 4, creative: base + 5, stamina: base + 3 },
-    FWD: { attack: base + 7, defense: 38 + variation, creative: base - 1, stamina: base + 2 },
-  };
-
-  return {
-    id: `${team}-${season}-${role}-${index}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
-    name: `${role} Rotasi ${team} ${season} ${index}`,
-    team,
-    season,
-    group,
-    ...stats[group],
-    generated: true,
-  };
-}
-
-function stableNumber(value: string) {
-  let hash = 0;
-  for (let index = 0; index < value.length; index += 1) {
-    hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
-  }
-  return hash;
 }

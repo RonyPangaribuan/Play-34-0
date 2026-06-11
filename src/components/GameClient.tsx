@@ -552,7 +552,6 @@ function PlayerChoice({
       </div>
       <div className="slot-fit-row">
         <span>{canDraft ? `Bisa masuk: ${slotLabels.join(", ")}` : "Slot posisi ini sudah penuh"}</span>
-        {player.generated && <small>Roster pelengkap</small>}
       </div>
       <div className="stat-row">
         {hideRatings ? (
