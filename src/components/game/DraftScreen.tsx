@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PlayerChoice } from "@/components/game/PlayerChoice";
 import { Pitch } from "@/components/game/Pitch";
 import { seasonTeams, seasons } from "@/lib/game-data";
-import type { RatingMode } from "@/lib/game-engine";
+import { playerOverall, type RatingMode } from "@/lib/game-engine";
 import type { FormationSlot, PlayerGroup, PlayerSeason, SpinResult, SpinRule, TeamMetrics } from "@/lib/types";
 
 export type DraftScreenProps = {
@@ -55,6 +55,7 @@ export function DraftScreen({
     () => spin?.choices.find((player) => player.id === selectedPlayerId) ?? null,
     [selectedPlayerId, spin],
   );
+  const overallRows = useMemo(() => buildOverallRows(lineup, ratingMode), [lineup, ratingMode]);
 
   useEffect(() => {
     setSelectedPlayerId(null);
@@ -105,6 +106,8 @@ export function DraftScreen({
         <Pitch formation={formation} lineup={lineup} compact />
 
         <aside className="draft-panel" aria-label="Draft controls">
+          <OverallPanel rating={metrics.rating} rows={overallRows} />
+
           <div className="slot-card">
             <div className="slot-head">
               <p className="eyebrow">Slot</p>
@@ -189,6 +192,31 @@ export function DraftScreen({
             Simulasi 34 Laga
           </button>
         </aside>
+      </div>
+    </section>
+  );
+}
+
+function OverallPanel({ rating, rows }: { rating: number; rows: OverallRow[] }) {
+  return (
+    <section className="overall-card" aria-label="Overall tim">
+      <div className="overall-head">
+        <span>Overall</span>
+        <strong>{rating || "-"}</strong>
+      </div>
+      <div className="overall-rows">
+        {rows.map((row) => (
+          <div className="overall-row" key={row.key}>
+            <div>
+              <span className={`overall-icon icon-${row.key}`}>{row.icon}</span>
+              <span>{row.label}</span>
+              <strong>{row.value ?? "-"}</strong>
+            </div>
+            <div className="overall-track" aria-hidden="true">
+              <span style={{ width: `${row.value ?? 0}%` }} />
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -286,10 +314,33 @@ function randomSpinPreview() {
   return { team, season };
 }
 
+function buildOverallRows(lineup: Record<string, PlayerSeason>, ratingMode: RatingMode): OverallRow[] {
+  const players = Object.values(lineup);
+  return [
+    { key: "attack", label: "Attack", icon: "A", value: averageGroupOverall(players, "FWD", ratingMode) },
+    { key: "midfield", label: "Midfield", icon: "M", value: averageGroupOverall(players, "MID", ratingMode) },
+    { key: "defence", label: "Defence", icon: "D", value: averageGroupOverall(players, "DEF", ratingMode) },
+    { key: "gk", label: "GK", icon: "G", value: averageGroupOverall(players, "GK", ratingMode) },
+  ];
+}
+
+function averageGroupOverall(players: PlayerSeason[], group: PlayerGroup, ratingMode: RatingMode) {
+  const groupPlayers = players.filter((player) => player.group === group);
+  if (!groupPlayers.length) return null;
+  return Math.round(groupPlayers.reduce((sum, player) => sum + playerOverall(player, ratingMode), 0) / groupPlayers.length);
+}
+
 type SlotOption = {
   id: string;
   label: string;
   shortLabel: string;
   group: PlayerGroup;
   available: boolean;
+};
+
+type OverallRow = {
+  key: "attack" | "midfield" | "defence" | "gk";
+  label: string;
+  icon: string;
+  value: number | null;
 };

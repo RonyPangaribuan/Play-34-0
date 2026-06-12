@@ -823,7 +823,7 @@ h2 {
 }
 
 .draft-screen {
-  width: min(100%, 1180px);
+  width: min(100%, 1080px);
   margin: 0 auto;
 }
 
@@ -854,15 +854,15 @@ h2 {
 
 .draft-layout {
   display: grid;
-  grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  gap: 18px;
   align-items: start;
 }
 
 .draft-panel {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
   min-height: auto;
 }
 
@@ -920,6 +920,7 @@ h2 {
 
 .setup-card,
 .slot-card,
+.overall-card,
 .metric-card,
 .metric-grid,
 .result-box,
@@ -963,23 +964,110 @@ h2 {
 }
 
 .slot-card,
+.overall-card,
 .metric-card,
 .result-box {
-  padding: 16px;
+  padding: 12px;
 }
 
 .slot-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.overall-card {
+  display: grid;
+  gap: 10px;
+}
+
+.overall-head {
+  display: grid;
+  gap: 2px;
+}
+
+.overall-head span {
+  color: #8ba0c0;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.overall-head strong {
+  color: white;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.overall-rows {
+  display: grid;
+  gap: 8px;
+}
+
+.overall-row {
+  display: grid;
+  gap: 5px;
+}
+
+.overall-row > div:first-child {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+  color: #b7c8e3;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.overall-icon {
+  display: grid;
+  width: 16px;
+  height: 16px;
+  place-items: center;
+  border-radius: 50%;
+  color: #06110e;
+  font-size: 0.58rem;
+  font-weight: 1000;
+}
+
+.icon-attack {
+  background: #ff8a4c;
+}
+
+.icon-midfield {
+  background: #6d72ff;
+}
+
+.icon-defence {
+  background: #5ca8ff;
+}
+
+.icon-gk {
+  background: #d078ff;
+}
+
+.overall-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.overall-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #3a86ff, #69d1ff);
+  transition: width 180ms ease;
 }
 
 #positionBadge {
   display: grid;
   place-items: center;
-  min-width: 42px;
-  min-height: 32px;
+  min-width: 38px;
+  min-height: 28px;
   border-radius: 8px;
   background: rgba(115, 183, 255, 0.18);
   color: var(--sky);
@@ -988,10 +1076,10 @@ h2 {
 
 .reel {
   display: grid;
-  min-height: 116px;
+  min-height: 82px;
   place-items: center;
-  margin-bottom: 12px;
-  padding: 16px;
+  margin-bottom: 10px;
+  padding: 12px;
   border-radius: 8px;
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
@@ -1005,7 +1093,7 @@ h2 {
 .spin-preview {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: 10px;
+  gap: 8px;
   align-items: end;
   width: 100%;
 }
@@ -1024,8 +1112,8 @@ h2 {
 }
 
 .spin-preview strong {
-  min-height: 42px;
-  padding: 12px 10px;
+  min-height: 36px;
+  padding: 9px 8px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1041,7 +1129,7 @@ h2 {
 
 .spin-preview b {
   color: #6f8099;
-  line-height: 42px;
+  line-height: 36px;
 }
 
 .primary-button {
@@ -1064,7 +1152,7 @@ h2 {
 
 .choice-list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   max-height: none;
   overflow: visible;
   padding-right: 0;
@@ -1101,8 +1189,8 @@ h2 {
 
 .choice-card {
   display: grid;
-  gap: 10px;
-  padding: 12px;
+  gap: 7px;
+  padding: 9px 10px;
   text-align: left;
 }
 
@@ -1131,15 +1219,15 @@ h2 {
 
 .player-top {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) auto;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .player-avatar {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   place-items: center;
   border-radius: 8px;
   color: white;
@@ -1168,6 +1256,7 @@ h2 {
 
 .player-name {
   overflow: hidden;
+  font-size: 0.9rem;
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1175,7 +1264,7 @@ h2 {
 
 .player-meta {
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.76rem;
 }
 
 .slot-chip-row {
@@ -1188,12 +1277,12 @@ h2 {
 .slot-chip,
 .slot-pill {
   border-radius: 6px;
-  font-size: 0.73rem;
+  font-size: 0.68rem;
   font-weight: 900;
 }
 
 .slot-chip {
-  padding: 5px 7px;
+  padding: 4px 6px;
   background: rgba(16, 185, 129, 0.16);
   color: #23d6a0;
 }
@@ -1250,8 +1339,8 @@ h2 {
 
 .placement-panel {
   display: grid;
-  gap: 12px;
-  padding: 12px;
+  gap: 9px;
+  padding: 10px;
   border: 1px solid rgba(0, 200, 135, 0.62);
   border-radius: 8px;
   background: rgba(0, 200, 135, 0.08);
@@ -1269,7 +1358,7 @@ h2 {
 }
 
 .mini-button {
-  min-height: 32px;
+  min-height: 28px;
   padding: 0 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1281,7 +1370,7 @@ h2 {
 .placement-label {
   margin: 0;
   color: var(--mint);
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1294,12 +1383,12 @@ h2 {
 .placement-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .slot-pill {
-  min-height: 36px;
-  padding: 0 12px;
+  min-height: 30px;
+  padding: 0 9px;
 }
 
 button.slot-pill {
@@ -1347,8 +1436,8 @@ button.slot-pill {
 }
 
 .pitch-panel-compact .pitch {
-  width: min(100%, 390px);
-  height: clamp(440px, 58vh, 560px);
+  width: min(100%, 340px);
+  height: clamp(390px, 54vh, 500px);
 }
 
 .pitch {
