@@ -1,40 +1,41 @@
 import { playerOverall, type RatingMode } from "@/lib/game-engine";
-import type { PlayerSeason } from "@/lib/types";
+import type { PlayerGroup, PlayerSeason } from "@/lib/types";
 
 export type PlayerChoiceProps = {
   player: PlayerSeason;
   hideRatings: boolean;
   ratingMode: RatingMode;
-  slotLabels: string[];
-  onDraft: (player: PlayerSeason) => void;
+  selected: boolean;
+  slotOptions: Array<{ id: string; shortLabel: string; group: PlayerGroup }>;
+  onSelect: (playerId: string) => void;
 };
 
-export function PlayerChoice({ player, hideRatings, ratingMode, slotLabels, onDraft }: PlayerChoiceProps) {
-  const canDraft = slotLabels.length > 0;
+export function PlayerChoice({ player, hideRatings, ratingMode, selected, slotOptions, onSelect }: PlayerChoiceProps) {
+  const canDraft = slotOptions.length > 0;
 
   return (
-    <button className={`choice-card ${canDraft ? "" : "choice-card-disabled"}`} disabled={!canDraft} type="button" onClick={() => onDraft(player)}>
+    <button
+      className={`choice-card ${selected ? "selected" : ""} ${canDraft ? "" : "choice-card-disabled"}`}
+      disabled={!canDraft}
+      type="button"
+      onClick={() => onSelect(player.id)}
+    >
       <div className="player-top">
-        <div>
+        <div className={`player-avatar avatar-${player.group.toLowerCase()}`}>?</div>
+        <div className="player-copy">
           <div className="player-name">{player.name}</div>
-          <div className="player-meta">{player.team} | {player.season} | {player.group}</div>
+          <div className="player-meta">{player.nationality || `${player.team} | ${player.season}`}</div>
         </div>
-        <strong>{hideRatings ? "?" : playerOverall(player, ratingMode)}</strong>
+        <div className="slot-chip-row" aria-label="Posisi tersedia">
+          {slotOptions.map((slot) => (
+            <span className={`slot-chip chip-${slot.group.toLowerCase()}`} key={slot.id}>{slot.shortLabel}</span>
+          ))}
+          {hideRatings ? <span className="slot-chip muted">OVR ?</span> : <span className="slot-chip muted">OVR {playerOverall(player, ratingMode)}</span>}
+        </div>
       </div>
       <div className="slot-fit-row">
-        <span>{canDraft ? `Bisa masuk: ${slotLabels.join(", ")}` : "Slot posisi ini sudah penuh"}</span>
+        <span>{canDraft ? "Pilih pemain, lalu tentukan slot posisi." : "Slot posisi ini sudah penuh"}</span>
         {player.dataStatus === "generated" && <small>Roster pelengkap</small>}
-      </div>
-      <div className="stat-row">
-        {hideRatings ? (
-          <>
-            <span>Rating</span><span>disimpan</span><span>sampai</span><span>akhir</span>
-          </>
-        ) : (
-          <>
-            <span>ATK {player.attack}</span><span>DEF {player.defense}</span><span>CRE {player.creative}</span><span>OVR {playerOverall(player, ratingMode)}</span>
-          </>
-        )}
       </div>
     </button>
   );

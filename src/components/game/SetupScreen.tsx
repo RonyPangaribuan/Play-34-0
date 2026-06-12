@@ -51,6 +51,8 @@ export function SetupScreen({
 }: SetupScreenProps) {
   const selectedFormation = formations[formationKey] ?? formations["433"];
   const description = formationMeta[formationKey]?.description ?? "Pilih bentuk tim yang paling cocok dengan gaya draft kamu.";
+  const eraIndex = eraPreset === "modern" ? 1 : 0;
+  const eraStartLabel = eraPreset === "modern" ? "2021/22" : "2017";
 
   return (
     <section className="setup-builder">
@@ -177,21 +179,32 @@ export function SetupScreen({
       </SetupBlock>
 
       <SetupBlock title="Era">
-        <div className="era-options">
+        <div className="era-options" role="group" aria-label="Era database">
           <button className={`setup-option ${eraPreset === "all" ? "selected" : ""}`} type="button" onClick={() => onEraPresetChange("all")}>Semua era</button>
-          <button className={`setup-option ${eraPreset === "early" ? "selected" : ""}`} type="button" onClick={() => onEraPresetChange("early")}>Liga 1 awal</button>
           <button className={`setup-option ${eraPreset === "modern" ? "selected" : ""}`} type="button" onClick={() => onEraPresetChange("modern")}>Modern</button>
         </div>
-        <div className="era-track">
-          <span className={eraPreset !== "modern" ? "active" : ""} />
-          <span className={eraPreset === "modern" ? "active" : ""} />
+        <div className="era-range-wrap">
+          <input
+            aria-label="Geser pilihan era"
+            className={`era-range ${eraPreset === "modern" ? "is-modern" : "is-all"}`}
+            max={1}
+            min={0}
+            onChange={(event) => onEraPresetChange(event.target.value === "1" ? "modern" : "all")}
+            step={1}
+            type="range"
+            value={eraIndex}
+          />
         </div>
         <div className="era-labels">
-          <strong>{eraPreset === "modern" ? "2021/22" : "2017"}</strong>
+          <strong>{eraStartLabel}</strong>
           <span>Database Liga Indonesia</span>
           <strong>2025/26</strong>
         </div>
-        <p className="setup-helper">Hanya klub-musim dalam rentang ini yang akan muncul di wheel.</p>
+        <p className="setup-helper">
+          {eraPreset === "modern"
+            ? "Mode Modern memakai klub-musim dari 2021/22 sampai musim terbaru di database."
+            : "Semua era memakai klub-musim sejak awal Liga 1 pada 2017 sampai musim terbaru di database."}
+        </p>
       </SetupBlock>
 
       <button className="primary-button setup-start-button" type="button" disabled={!formationKey} onClick={onStart}>

@@ -701,47 +701,73 @@ h2 {
 }
 
 .era-options {
-  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-auto-columns: minmax(250px, 1fr);
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scroll-snap-type: x mandatory;
 }
 
-.era-track {
+.era-options .setup-option {
+  scroll-snap-align: start;
+}
+
+.era-range-wrap {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 18px;
-  align-items: center;
   margin-top: 4px;
 }
 
-.era-track::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
+.era-range {
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  cursor: pointer;
+  appearance: none;
+  background: transparent;
+}
+
+.era-range::-webkit-slider-runnable-track {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--era-track-fill, rgba(255, 255, 255, 0.13));
+}
+
+.era-range.is-all {
+  --era-track-fill: linear-gradient(90deg, var(--mint) 0%, var(--mint) 8%, rgba(255, 255, 255, 0.13) 8%, rgba(255, 255, 255, 0.13) 100%);
+}
+
+.era-range.is-modern {
+  --era-track-fill: linear-gradient(90deg, var(--mint) 0%, var(--mint) 100%);
+}
+
+.era-range::-moz-range-track {
   height: 7px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.13);
 }
 
-.era-track span {
-  position: relative;
-  z-index: 1;
+.era-range::-moz-range-progress {
   height: 7px;
   border-radius: 999px;
-}
-
-.era-track span.active {
   background: var(--mint);
 }
 
-.era-track span::after {
-  content: "";
-  position: absolute;
-  right: -8px;
-  top: 50%;
+.era-range::-webkit-slider-thumb {
+  width: 28px;
+  height: 28px;
+  margin-top: -10px;
+  appearance: none;
+  border: 4px solid var(--mint);
+  border-radius: 50%;
+  background: #f7fff9;
+}
+
+.era-range::-moz-range-thumb {
   width: 24px;
-  aspect-ratio: 1;
-  transform: translateY(-50%);
+  height: 24px;
   border: 4px solid var(--mint);
   border-radius: 50%;
   background: #f7fff9;
@@ -972,6 +998,48 @@ h2 {
   font-weight: 900;
 }
 
+.spin-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: end;
+  width: 100%;
+}
+
+.spin-preview div {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.spin-preview span {
+  color: #7e91ad;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.spin-preview strong {
+  min-height: 42px;
+  padding: 12px 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spin-preview div:last-child strong {
+  color: var(--gold);
+}
+
+.spin-preview b {
+  color: #6f8099;
+  line-height: 42px;
+}
+
 .primary-button {
   width: 100%;
   background: var(--mint);
@@ -1018,6 +1086,11 @@ h2 {
   text-align: left;
 }
 
+.choice-card.selected {
+  border-color: var(--mint);
+  background: rgba(0, 200, 135, 0.08);
+}
+
 .choice-card:hover {
   border-color: rgba(93, 242, 162, 0.52);
   transform: translateY(-1px);
@@ -1037,19 +1110,101 @@ h2 {
 }
 
 .player-top {
-  display: flex;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
+}
+
+.player-avatar {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 8px;
+  color: white;
+  font-weight: 900;
+}
+
+.avatar-gk {
+  background: #f59e0b;
+}
+
+.avatar-def {
+  background: #3478f6;
+}
+
+.avatar-mid {
+  background: #10b981;
+}
+
+.avatar-fwd {
+  background: #ef4444;
+}
+
+.player-copy {
+  min-width: 0;
 }
 
 .player-name {
+  overflow: hidden;
   font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .player-meta {
   color: var(--muted);
   font-size: 0.84rem;
+}
+
+.slot-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.slot-chip,
+.slot-pill {
+  border-radius: 6px;
+  font-size: 0.73rem;
+  font-weight: 900;
+}
+
+.slot-chip {
+  padding: 5px 7px;
+  background: rgba(16, 185, 129, 0.16);
+  color: #23d6a0;
+}
+
+.slot-chip.chip-gk,
+.slot-pill.slot-gk {
+  background: rgba(245, 158, 11, 0.18);
+  color: #f5b82f;
+}
+
+.slot-chip.chip-def,
+.slot-pill.slot-def {
+  background: rgba(52, 120, 246, 0.2);
+  color: #79a9ff;
+}
+
+.slot-chip.chip-mid,
+.slot-pill.slot-mid {
+  background: rgba(16, 185, 129, 0.18);
+  color: #31d8a5;
+}
+
+.slot-chip.chip-fwd,
+.slot-pill.slot-fwd {
+  background: rgba(239, 68, 68, 0.18);
+  color: #ff8a8a;
+}
+
+.slot-chip.muted {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--muted);
 }
 
 .slot-fit-row {
@@ -1071,6 +1226,72 @@ h2 {
   font-size: 0.68rem;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.placement-panel {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(0, 200, 135, 0.62);
+  border-radius: 8px;
+  background: rgba(0, 200, 135, 0.08);
+}
+
+.placement-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.placement-head span {
+  color: var(--mint);
+}
+
+.mini-button {
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.placement-label {
+  margin: 0;
+  color: var(--mint);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.placement-label.muted {
+  color: #77859a;
+}
+
+.placement-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.slot-pill {
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+button.slot-pill {
+  border: 0;
+}
+
+.placement-grid.unavailable .slot-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: #6f8099;
 }
 
 .stat-row {
@@ -1472,9 +1693,12 @@ h2 {
 
   .formation-options,
   .setup-card-grid.two,
-  .setup-card-grid.three,
-  .era-options {
+  .setup-card-grid.three {
     grid-template-columns: 1fr;
+  }
+
+  .era-options {
+    grid-auto-columns: minmax(220px, 82%);
   }
 
   .formation-preview {
@@ -1502,6 +1726,23 @@ h2 {
   .mini-metrics span {
     flex: 1 1 110px;
     text-align: center;
+  }
+
+  .player-top {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .slot-chip-row {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .spin-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .spin-preview b {
+    display: none;
   }
 
   .result-actions {

@@ -1,7 +1,11 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PlayerChoice } from "@/components/game/PlayerChoice";
 import { Pitch } from "@/components/game/Pitch";
+import { seasonTeams, seasons } from "@/lib/game-data";
 import type { RatingMode } from "@/lib/game-engine";
-import type { FormationSlot, PlayerSeason, SpinResult, SpinRule, TeamMetrics } from "@/lib/types";
+import type { FormationSlot, PlayerGroup, PlayerSeason, SpinResult, SpinRule, TeamMetrics } from "@/lib/types";
 
 export type DraftScreenProps = {
   formation: FormationSlot[];
@@ -16,7 +20,7 @@ export type DraftScreenProps = {
   metrics: TeamMetrics;
   formationKey: string;
   onSpin: () => void;
-  onDraft: (player: PlayerSeason) => void;
+  onDraft: (player: PlayerSeason, slotId?: string) => void;
   onSimulate: () => void;
   onBackToSetup: () => void;
 };
@@ -38,10 +42,52 @@ export function DraftScreen({
   onSimulate,
   onBackToSetup,
 }: DraftScreenProps) {
+  const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [spinPreview, setSpinPreview] = useState<{ team: string; season: string } | null>(null);
+  const spinTimer = useRef<number | null>(null);
+  const spinFinishTimer = useRef<number | null>(null);
   const spinHasChoices = !!spin?.choices.length;
   const spinIsEmpty = !!spin && !spinHasChoices;
-  const spinButtonDisabled = complete || (!!spin && (spinHasChoices || spinIsEmpty) && rerollsLeft <= 0);
+  const spinButtonDisabled = isSpinning || complete || (!!spin && (spinHasChoices || spinIsEmpty) && rerollsLeft <= 0);
   const emptySpinMessage = spin ? getEmptySpinMessage(spin, rerollsLeft) : "";
+  const selectedPlayer = useMemo(
+    () => spin?.choices.find((player) => player.id === selectedPlayerId) ?? null,
+    [selectedPlayerId, spin],
+  );
+
+  useEffect(() => {
+    setSelectedPlayerId(null);
+  }, [spin?.team, spin?.season, spin?.slotId]);
+
+  useEffect(() => {
+    return () => {
+      if (spinTimer.current) window.clearInterval(spinTimer.current);
+      if (spinFinishTimer.current) window.clearTimeout(spinFinishTimer.current);
+    };
+  }, []);
+
+  function startSpin() {
+    if (spinButtonDisabled) return;
+    setSelectedPlayerId(null);
+    setIsSpinning(true);
+    setSpinPreview(randomSpinPreview());
+    spinTimer.current = window.setInterval(() => {
+      setSpinPreview(randomSpinPreview());
+    }, 110);
+    spinFinishTimer.current = window.setTimeout(() => {
+      if (spinTimer.current) window.clearInterval(spinTimer.current);
+      spinTimer.current = null;
+      setIsSpinning(false);
+      setSpinPreview(null);
+      onSpin();
+    }, 900);
+  }
+
+  function draftIntoSlot(player: PlayerSeason, slotId: string) {
+    onDraft(player, slotId);
+    setSelectedPlayerId(null);
+  }
 
   return (
     <section className="draft-screen">
@@ -63,7 +109,19 @@ export function DraftScreen({
               <span id="positionBadge">{spinRule === "team" ? "TIM" : spin?.slotLabel?.replace(/[0-9]/g, "").slice(0, 3).toUpperCase() || "SET"}</span>
             </div>
             <div className="reel">
-              {spinIsEmpty ? (
+              {isSpinning && spinPreview ? (
+                <div className="spin-preview" aria-live="polite">
+                  <div>
+                    <span>Klub</span>
+                    <strong>{spinPreview.team}</strong>
+                  </div>
+                  <b>×</b>
+                  <div>
+                    <span>Musim</span>
+                    <strong>{spinPreview.season}</strong>
+                  </div>
+                </div>
+              ) : spinIsEmpty ? (
                 <span>Tidak ada kandidat<br />coba lagi atau ubah setup</span>
               ) : spin ? (
                 <span>{spin.team}<br />{spin.season}<br />{spin.slotLabel}</span>
@@ -71,8 +129,8 @@ export function DraftScreen({
                 <span>{complete ? "XI siap disimulasikan" : "Tekan Spin"}</span>
               )}
             </div>
-            <button className="primary-button" type="button" disabled={spinButtonDisabled} onClick={onSpin}>
-              {spinIsEmpty && rerollsLeft > 0 ? "Reroll Slot" : spinIsEmpty ? "Ubah setup dulu" : spin ? "Reroll Slot" : "Spin Slot"}
+            <button className="primary-button" type="button" disabled={spinButtonDisabled} onClick={startSpin}>
+              {isSpinning ? "Memutar..." : spinIsEmpty && rerollsLeft > 0 ? "Reroll Slot" : spinIsEmpty ? "Ubah setup dulu" : spin ? "Reroll Slot" : "Spin Slot"}
             </button>
           </div>
 
@@ -86,22 +144,36 @@ export function DraftScreen({
             )}
             {spin && (
               <>
-                <div className="choice-summary">{spin.choices.length} pemain tersedia</div>
+                <div className="choice-summary">
+                  {spinRule === "team" ? "Squad spin" : "Position spin"} | {spin.team || "-"} {spin.season || ""} | {spin.choices.length} pemain
+                </div>
                 {spinIsEmpty && (
                   <div className="empty-state">
                     {emptySpinMessage}
                   </div>
                 )}
+                {selectedPlayer && (
+                  <PlacementPanel
+                    formation={formation}
+                    lineup={lineup}
+                    player={selectedPlayer}
+                    spin={spin}
+                    spinRule={spinRule}
+                    onCancel={() => setSelectedPlayerId(null)}
+                    onDraft={draftIntoSlot}
+                  />
+                )}
                 {spin.choices.map((player) => {
-                  const slotLabels = availableSlotLabels({ formation, lineup, player, spin, spinRule });
+                  const slotOptions = slotOptionsForPlayer({ formation, lineup, player, spin, spinRule });
                   return (
                     <PlayerChoice
                       key={player.id}
                       player={player}
                       hideRatings={hideRatings}
                       ratingMode={ratingMode}
-                      slotLabels={slotLabels}
-                      onDraft={onDraft}
+                      selected={selectedPlayerId === player.id}
+                      slotOptions={slotOptions.filter((slot) => slot.available)}
+                      onSelect={setSelectedPlayerId}
                     />
                   );
                 })}
@@ -120,6 +192,51 @@ export function DraftScreen({
   );
 }
 
+function PlacementPanel({
+  formation,
+  lineup,
+  player,
+  spin,
+  spinRule,
+  onCancel,
+  onDraft,
+}: {
+  formation: FormationSlot[];
+  lineup: Record<string, PlayerSeason>;
+  player: PlayerSeason;
+  spin: SpinResult;
+  spinRule: SpinRule;
+  onCancel: () => void;
+  onDraft: (player: PlayerSeason, slotId: string) => void;
+}) {
+  const options = slotOptionsForPlayer({ formation, lineup, player, spin, spinRule });
+  const available = options.filter((slot) => slot.available);
+  const unavailable = options.filter((slot) => !slot.available);
+
+  return (
+    <div className="placement-panel">
+      <div className="placement-head">
+        <strong>Tempatkan <span>{player.name}</span></strong>
+        <button className="mini-button" type="button" onClick={onCancel}>Batal</button>
+      </div>
+      <p className="placement-label">Tersedia ({available.length})</p>
+      <div className="placement-grid">
+        {available.map((slot) => (
+          <button className={`slot-pill slot-${slot.group.toLowerCase()}`} key={slot.id} type="button" onClick={() => onDraft(player, slot.id)}>
+            {slot.label} ({slot.shortLabel})
+          </button>
+        ))}
+      </div>
+      <p className="placement-label muted">Tidak tersedia</p>
+      <div className="placement-grid unavailable">
+        {unavailable.map((slot) => (
+          <span className="slot-pill" key={slot.id}>{slot.shortLabel} · N/A</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function getEmptySpinMessage(spin: SpinResult, rerollsLeft: number) {
   const reason = spin.unavailableReason ?? "Belum ada pemain yang cocok untuk pilihan ini.";
   if (rerollsLeft > 0) {
@@ -128,7 +245,7 @@ function getEmptySpinMessage(spin: SpinResult, rerollsLeft: number) {
   return `${reason} Kembali ke setup lalu aktifkan roster pelengkap atau pilih era yang lebih luas.`;
 }
 
-function availableSlotLabels({
+function slotOptionsForPlayer({
   formation,
   lineup,
   player,
@@ -140,13 +257,37 @@ function availableSlotLabels({
   player: PlayerSeason;
   spin: SpinResult;
   spinRule: SpinRule;
-}) {
+}): SlotOption[] {
   if (spinRule === "position") {
-    const target = formation.find((slot) => slot.id === spin.slotId && !lineup[slot.id]);
-    return target && target.group === player.group ? [target.label] : [];
+    return formation.map((slot) => ({
+      id: slot.id,
+      label: slot.label,
+      shortLabel: slot.id.replace(/[0-9]/g, ""),
+      group: slot.group,
+      available: slot.id === spin.slotId && !lineup[slot.id] && slot.group === player.group,
+    }));
   }
 
-  return formation
-    .filter((slot) => !lineup[slot.id] && slot.group === player.group)
-    .map((slot) => slot.label);
+  return formation.map((slot) => ({
+    id: slot.id,
+    label: slot.label,
+    shortLabel: slot.id.replace(/[0-9]/g, ""),
+    group: slot.group,
+    available: !lineup[slot.id] && slot.group === player.group,
+  }));
 }
+
+function randomSpinPreview() {
+  const season = seasons[Math.floor(Math.random() * seasons.length)] ?? "2025/26";
+  const teams = seasonTeams[season] ?? [];
+  const team = teams[Math.floor(Math.random() * teams.length)] ?? "Persib";
+  return { team, season };
+}
+
+type SlotOption = {
+  id: string;
+  label: string;
+  shortLabel: string;
+  group: PlayerGroup;
+  available: boolean;
+};

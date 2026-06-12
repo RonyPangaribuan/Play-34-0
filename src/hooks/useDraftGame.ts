@@ -7,7 +7,7 @@ import type { PlayerSeason, SimulationResult, SpinResult, SpinRule } from "@/lib
 
 export type GameStep = "setup" | "draft" | "result";
 export type Difficulty = "easy" | "normal" | "hard";
-export type EraPreset = "all" | "early" | "modern";
+export type EraPreset = "all" | "modern";
 
 const rerollLimits: Record<Difficulty, number> = {
   easy: 3,
@@ -66,10 +66,15 @@ export function useDraftGame() {
     setSpin(spinDraftSlot({ formation, lineup, spinRule, seasonFilter: selectedSeasons, ratingMode, includeGeneratedPlayers }));
   }
 
-  function draftPlayer(player: PlayerSeason) {
+  function draftPlayer(player: PlayerSeason, slotId?: string) {
     if (!formation.length || !spin) return;
     const targetSlot =
-      spinRule === "team"
+      slotId
+        ? formation.find((slot) => {
+            const matchesSpin = spinRule === "team" || slot.id === spin.slotId;
+            return matchesSpin && slot.id === slotId && !lineup[slot.id] && slot.group === player.group;
+          })
+        : spinRule === "team"
         ? findSlotForPlayer(formation, lineup, player)
         : formation.find((slot) => slot.id === spin.slotId);
     if (!targetSlot) return;
@@ -140,7 +145,6 @@ export function useDraftGame() {
 }
 
 function getEraSeasons(eraPreset: EraPreset) {
-  if (eraPreset === "modern") return seasons.filter((season) => season >= "2021");
-  if (eraPreset === "early") return seasons.filter((season) => season === "2017" || season === "2018" || season === "2019" || season === "2020");
+  if (eraPreset === "modern") return seasons.filter((season) => season >= "2021/22");
   return seasons;
 }
