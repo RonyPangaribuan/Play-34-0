@@ -102,6 +102,8 @@ export function DraftScreen({
       </div>
 
       <div className="draft-layout">
+        <Pitch formation={formation} lineup={lineup} compact />
+
         <aside className="draft-panel" aria-label="Draft controls">
           <div className="slot-card">
             <div className="slot-head">
@@ -115,7 +117,7 @@ export function DraftScreen({
                     <span>Klub</span>
                     <strong>{spinPreview.team}</strong>
                   </div>
-                  <b>×</b>
+                  <b>x</b>
                   <div>
                     <span>Musim</span>
                     <strong>{spinPreview.season}</strong>
@@ -145,7 +147,9 @@ export function DraftScreen({
             {spin && (
               <>
                 <div className="choice-summary">
-                  {spinRule === "team" ? "Squad spin" : "Position spin"} | {spin.team || "-"} {spin.season || ""} | {spin.choices.length} pemain
+                  <span>{spinRule === "team" ? "Squad spin" : "Position spin"}</span>
+                  <strong>{spin.team || "-"} <em>{spin.season || ""}</em></strong>
+                  <small>{spin.choices.length} pemain</small>
                 </div>
                 {spinIsEmpty && (
                   <div className="empty-state">
@@ -185,8 +189,6 @@ export function DraftScreen({
             Simulasi 34 Laga
           </button>
         </aside>
-
-        <Pitch formation={formation} lineup={lineup} />
       </div>
     </section>
   );
@@ -230,7 +232,7 @@ function PlacementPanel({
       <p className="placement-label muted">Tidak tersedia</p>
       <div className="placement-grid unavailable">
         {unavailable.map((slot) => (
-          <span className="slot-pill" key={slot.id}>{slot.shortLabel} · N/A</span>
+          <span className="slot-pill" key={slot.id}>{slot.shortLabel} - N/A</span>
         ))}
       </div>
     </div>

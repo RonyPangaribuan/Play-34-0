@@ -822,6 +822,11 @@ h2 {
   gap: 16px;
 }
 
+.draft-screen {
+  width: min(100%, 760px);
+  margin: 0 auto;
+}
+
 .draft-toolbar {
   display: flex;
   align-items: center;
@@ -849,16 +854,16 @@ h2 {
 
 .draft-layout {
   display: grid;
-  grid-template-columns: minmax(280px, 390px) minmax(420px, 1fr);
+  grid-template-columns: 1fr;
   gap: 18px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .draft-panel {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  min-height: 690px;
+  min-height: auto;
 }
 
 .result-screen {
@@ -1060,22 +1065,38 @@ h2 {
 .choice-list {
   display: grid;
   gap: 10px;
-  max-height: 360px;
-  overflow: auto;
-  padding-right: 4px;
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
 }
 
 .choice-summary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding: 8px 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(16, 23, 25, 0.96);
+  display: grid;
+  gap: 4px;
+  padding: 2px 0 8px;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 900;
+}
+
+.choice-summary span {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.choice-summary strong {
+  color: var(--text);
+  font-size: 1.08rem;
+}
+
+.choice-summary em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.choice-summary small {
+  color: var(--muted);
+  font-size: 0.76rem;
 }
 
 .choice-card {
@@ -1315,7 +1336,17 @@ button.slot-pill {
 
 .pitch-panel-compact,
 .pitch-panel-compact .pitch {
-  min-height: 500px;
+  min-height: 0;
+}
+
+.pitch-panel-compact {
+  display: flex;
+  justify-content: center;
+}
+
+.pitch-panel-compact .pitch {
+  width: min(100%, 520px);
+  height: clamp(420px, 72vw, 570px);
 }
 
 .pitch {
@@ -1440,6 +1471,26 @@ button.slot-pill {
 .slot-team {
   color: rgba(255, 255, 255, 0.68);
   font-size: 0.68rem;
+}
+
+.pitch-panel-compact .shirt-slot {
+  width: 86px;
+  min-height: 54px;
+}
+
+.pitch-panel-compact .shirt {
+  width: 34px;
+  height: 30px;
+  margin-bottom: 3px;
+  font-size: 0.66rem;
+}
+
+.pitch-panel-compact .slot-name {
+  font-size: 0.7rem;
+}
+
+.pitch-panel-compact .slot-team {
+  display: none;
 }
 
 .metric-card p:last-child {
