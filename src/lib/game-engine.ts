@@ -131,9 +131,20 @@ export function calculateChemistry(players: PlayerSeason[]) {
   return clamp(Math.round(base + sameTeamBonus + sameSeasonBonus + progressBonus + completeBonus), 0, 100);
 }
 
+export function calculateDraftTeamPower(metrics: TeamMetrics, lineupSize: number) {
+  const completeBonus = lineupSize >= 11 ? 4 : Math.round((lineupSize / 11) * 4);
+  const chemistryBonus = (metrics.chemistry - 50) * 0.12;
+  const balanceScore = Math.min(metrics.attack, metrics.defense, metrics.creative);
+  const balanceBonus = Math.max(-3, Math.min(3, (balanceScore - 70) * 0.12));
+
+  // Power is the simulation-facing strength: rating is the base, chemistry and a balanced full XI make it title-capable.
+  return clamp(Math.round(metrics.rating + completeBonus + chemistryBonus + balanceBonus), 45, 96);
+}
+
 export function simulateSeason(lineup: Record<string, PlayerSeason>, ratingMode: RatingMode = "season", seed = createSimulationSeed()): SimulationResult {
   const random = createSeededRandom(seed);
   const metrics = teamMetrics(lineup, ratingMode);
+  const draftPower = calculateDraftTeamPower(metrics, Object.keys(lineup).length);
   const { opponents, replacedTeam } = buildSchedule(lineup, random);
   let wins = 0;
   let draws = 0;
@@ -145,11 +156,12 @@ export function simulateSeason(lineup: Record<string, PlayerSeason>, ratingMode:
     const base = teamPower2026[match.team] ?? 72;
     const opponentRating = clamp(base + Math.floor(random() * 9) - 4, 62, 90);
     const homeBonus = match.home ? 3 : -2;
-    const edge = metrics.rating - opponentRating + homeBonus;
-    const attackPush = (metrics.attack + metrics.creative) / 2 - 70;
-    const defensePush = metrics.defense - 70;
-    const forGoals = clamp(Math.round(1.3 + edge / 18 + attackPush / 24 + random() * 2), 0, 6);
-    const againstGoals = clamp(Math.round(1.1 - edge / 24 - defensePush / 28 + random() * 2), 0, 5);
+    const edge = draftPower - opponentRating + homeBonus;
+    const attackPush = ((metrics.attack + metrics.creative) / 2 - 70) / 18;
+    const defensePush = (metrics.defense - 70) / 20;
+    const chemistryControl = (metrics.chemistry - 50) / 35;
+    const forGoals = clamp(Math.round(1.25 + edge / 14 + attackPush + chemistryControl * 0.25 + random() * 1.9), 0, 7);
+    const againstGoals = clamp(Math.round(1.15 - edge / 18 - defensePush - chemistryControl * 0.15 + random() * 1.7), 0, 6);
     gf += forGoals;
     ga += againstGoals;
     if (forGoals > againstGoals) wins += 1;
