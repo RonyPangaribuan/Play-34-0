@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { formations } from "@/lib/game-data";
+import type { CSSProperties, ReactNode } from "react";
+import { formations, seasons } from "@/lib/game-data";
 import type { RatingMode } from "@/lib/game-engine";
 import type { Difficulty, EraPreset } from "@/hooks/useDraftGame";
 import type { FormationSlot, SpinRule } from "@/lib/types";
@@ -21,6 +21,7 @@ export type SetupScreenProps = {
   spinRule: SpinRule;
   ratingMode: RatingMode;
   eraPreset: EraPreset;
+  eraStartSeason: string;
   includeGeneratedPlayers: boolean;
   onFormationChange: (value: string) => void;
   onDifficultyChange: (value: Difficulty) => void;
@@ -28,6 +29,7 @@ export type SetupScreenProps = {
   onSpinRuleChange: (value: SpinRule) => void;
   onRatingModeChange: (value: RatingMode) => void;
   onEraPresetChange: (value: EraPreset) => void;
+  onEraStartSeasonChange: (value: string) => void;
   onIncludeGeneratedPlayersChange: (value: boolean) => void;
   onStart: () => void;
 };
@@ -39,6 +41,7 @@ export function SetupScreen({
   spinRule,
   ratingMode,
   eraPreset,
+  eraStartSeason,
   includeGeneratedPlayers,
   onFormationChange,
   onDifficultyChange,
@@ -46,13 +49,16 @@ export function SetupScreen({
   onSpinRuleChange,
   onRatingModeChange,
   onEraPresetChange,
+  onEraStartSeasonChange,
   onIncludeGeneratedPlayersChange,
   onStart,
 }: SetupScreenProps) {
   const selectedFormation = formations[formationKey] ?? formations["433"];
   const description = formationMeta[formationKey]?.description ?? "Pilih bentuk tim yang paling cocok dengan gaya draft kamu.";
-  const eraIndex = eraPreset === "modern" ? 1 : 0;
-  const eraStartLabel = eraPreset === "modern" ? "2021/22" : "2017";
+  const latestSeason = seasons[seasons.length - 1] ?? "2025/26";
+  const eraStartIndex = Math.max(0, seasons.indexOf(eraStartSeason));
+  const eraProgress = (eraStartIndex / Math.max(1, seasons.length - 1)) * 100;
+  const eraRangeStyle = { "--era-progress": `${eraProgress}%` } as CSSProperties;
 
   return (
     <section className="setup-builder">
@@ -185,25 +191,28 @@ export function SetupScreen({
         </div>
         <div className="era-range-wrap">
           <input
-            aria-label="Geser pilihan era"
-            className={`era-range ${eraPreset === "modern" ? "is-modern" : "is-all"}`}
-            max={1}
+            aria-label="Geser musim awal database"
+            className="era-range"
+            max={seasons.length - 1}
             min={0}
-            onChange={(event) => onEraPresetChange(event.target.value === "1" ? "modern" : "all")}
+            onChange={(event) => onEraStartSeasonChange(seasons[Number(event.target.value)] ?? seasons[0])}
             step={1}
+            style={eraRangeStyle}
             type="range"
-            value={eraIndex}
+            value={eraStartIndex}
           />
         </div>
         <div className="era-labels">
-          <strong>{eraStartLabel}</strong>
+          <strong>{eraStartSeason}</strong>
           <span>Database Liga Indonesia</span>
-          <strong>2025/26</strong>
+          <strong>{latestSeason}</strong>
         </div>
         <p className="setup-helper">
-          {eraPreset === "modern"
+          {eraPreset === "all"
+            ? "Semua era memakai klub-musim sejak awal Liga 1 pada 2017 sampai musim terbaru di database."
+            : eraPreset === "modern"
             ? "Mode Modern memakai klub-musim dari 2021/22 sampai musim terbaru di database."
-            : "Semua era memakai klub-musim sejak awal Liga 1 pada 2017 sampai musim terbaru di database."}
+            : `Wheel memakai klub-musim dari ${eraStartSeason} sampai ${latestSeason}.`}
         </p>
       </SetupBlock>
 

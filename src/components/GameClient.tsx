@@ -26,13 +26,15 @@ export default function GameClient() {
           spinRule={game.spinRule}
           ratingMode={game.ratingMode}
           eraPreset={game.eraPreset}
+          eraStartSeason={game.eraStartSeason}
           includeGeneratedPlayers={game.includeGeneratedPlayers}
           onFormationChange={game.changeFormation}
           onDifficultyChange={game.changeDifficulty}
           onShowRatingsChange={game.setShowRatings}
           onSpinRuleChange={game.setSpinRule}
           onRatingModeChange={game.setRatingMode}
-          onEraPresetChange={game.setEraPreset}
+          onEraPresetChange={game.changeEraPreset}
+          onEraStartSeasonChange={game.changeEraStartSeason}
           onIncludeGeneratedPlayersChange={game.setIncludeGeneratedPlayers}
           onStart={game.startGame}
         />

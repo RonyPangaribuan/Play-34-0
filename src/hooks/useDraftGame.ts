@@ -7,13 +7,15 @@ import type { PlayerSeason, SimulationResult, SpinResult, SpinRule } from "@/lib
 
 export type GameStep = "setup" | "draft" | "result";
 export type Difficulty = "easy" | "normal" | "hard";
-export type EraPreset = "all" | "modern";
+export type EraPreset = "all" | "modern" | "custom";
 
 const rerollLimits: Record<Difficulty, number> = {
   easy: 3,
   normal: 1,
   hard: 0,
 };
+
+const modernStartSeason = "2021/22";
 
 export function useDraftGame() {
   const [step, setStep] = useState<GameStep>("setup");
@@ -23,6 +25,7 @@ export function useDraftGame() {
   const [spinRule, setSpinRule] = useState<SpinRule>("team");
   const [ratingMode, setRatingMode] = useState<RatingMode>("season");
   const [eraPreset, setEraPreset] = useState<EraPreset>("modern");
+  const [eraStartSeason, setEraStartSeason] = useState(modernStartSeason);
   const [includeGeneratedPlayers, setIncludeGeneratedPlayers] = useState(false);
   const [lineup, setLineup] = useState<Record<string, PlayerSeason>>({});
   const [spin, setSpin] = useState<SpinResult | null>(null);
@@ -31,7 +34,7 @@ export function useDraftGame() {
   const [rerollsLeft, setRerollsLeft] = useState(rerollLimits.normal);
 
   const formation = formationKey ? formations[formationKey] : [];
-  const selectedSeasons = useMemo(() => getEraSeasons(eraPreset), [eraPreset]);
+  const selectedSeasons = useMemo(() => getEraSeasons(eraStartSeason), [eraStartSeason]);
   const draftedCount = Object.keys(lineup).length;
   const metrics = useMemo(() => teamMetrics(lineup, ratingMode), [lineup, ratingMode]);
   const hideRatings = (difficulty === "hard" || !showRatings) && !ratingRevealed;
@@ -108,6 +111,23 @@ export function useDraftGame() {
     setStep("draft");
   }
 
+  function changeEraPreset(value: EraPreset) {
+    setEraPreset(value);
+    if (value === "all") setEraStartSeason(seasons[0]);
+    if (value === "modern") setEraStartSeason(modernStartSeason);
+  }
+
+  function changeEraStartSeason(value: string) {
+    setEraStartSeason(value);
+    if (value === seasons[0]) {
+      setEraPreset("all");
+    } else if (value === modernStartSeason) {
+      setEraPreset("modern");
+    } else {
+      setEraPreset("custom");
+    }
+  }
+
   return {
     step,
     formationKey,
@@ -116,6 +136,7 @@ export function useDraftGame() {
     spinRule,
     ratingMode,
     eraPreset,
+    eraStartSeason,
     includeGeneratedPlayers,
     lineup,
     spin,
@@ -132,7 +153,8 @@ export function useDraftGame() {
     setShowRatings,
     setSpinRule,
     setRatingMode,
-    setEraPreset,
+    changeEraPreset,
+    changeEraStartSeason,
     setIncludeGeneratedPlayers,
     startGame,
     spinSlot,
@@ -144,7 +166,7 @@ export function useDraftGame() {
   };
 }
 
-function getEraSeasons(eraPreset: EraPreset) {
-  if (eraPreset === "modern") return seasons.filter((season) => season >= "2021/22");
-  return seasons;
+function getEraSeasons(startSeason: string) {
+  const startIndex = seasons.indexOf(startSeason);
+  return seasons.slice(startIndex >= 0 ? startIndex : 0);
 }
