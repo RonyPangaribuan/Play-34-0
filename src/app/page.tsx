@@ -120,7 +120,7 @@ export default function Home() {
         <div className="challenge-grid">
           {challenges.map((challenge) => (
             <div className="challenge-item" key={challenge}>
-              <span>›</span>
+              <span>&gt;</span>
               {challenge}
             </div>
           ))}
@@ -152,7 +152,7 @@ export default function Home() {
         <h2>Siap membangun XI terbaik Indonesia?</h2>
         <p>Mulai draft, susun formasi, dan lihat apakah timmu bisa menyapu bersih 34 pertandingan.</p>
         <Link className="landing-primary" href="/game">
-          Mainkan 34-0 →
+          Mainkan 34-0 -&gt;
         </Link>
       </section>
 
