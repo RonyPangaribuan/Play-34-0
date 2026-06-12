@@ -116,18 +116,18 @@ Result screen menampilkan share card berbahasa Indonesia:
 
 ## Data Import
 
-Untuk mencoba import roster dari halaman Wikipedia club-season yang tersedia:
+Untuk memperbarui data pemain verified dari Wikipedia, gunakan importer Liga 1 berbasis kategori tahun:
 
 ```bash
-npm run data:import:wikipedia
+npm run data:import:wikipedia:liga1
 ```
 
 Importer akan menulis:
 
-- `src/data/player-seasons.wikipedia.json`
-- `src/data/roster-coverage.wikipedia.json`
+- `src/data/player-seasons.wikipedia.liga1.json`
+- `src/data/wikipedia-import-report-liga1.json`
 
-Catatan: Wikipedia tidak punya halaman squad lengkap untuk semua klub-musim Liga 1 2017-2026. File coverage dipakai untuk melihat klub-musim mana yang berhasil diimpor dan mana yang perlu sumber lain.
+Importer memakai `Category:Indonesian football club seasons by year`, lalu tetap memfilter klub sesuai daftar peserta di `seasonTeams` untuk setiap musim. Jika halaman tidak punya squad jelas atau request Wikipedia terkena rate-limit, item dicatat sebagai `missing` atau `needs-review`; jangan mengarang nama pemain.
 
 ## Batasan Aset
 

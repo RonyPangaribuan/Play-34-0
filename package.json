@@ -9,6 +9,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "data:import:wikipedia": "node scripts/import-wikipedia-rosters.mjs",
+    "data:import:wikipedia:liga1": "node scripts/import-wikipedia-liga1-seasons.mjs",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev"
   },

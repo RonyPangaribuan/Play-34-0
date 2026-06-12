@@ -1,0 +1,1622 @@
+[
+  {
+    "season": "2017",
+    "team": "Arema",
+    "pageTitle": "2017 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2017_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2017_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "Wikipedia request failed for https://en.wikipedia.org/w/api.php?action=parse&page=2017+Arema+F.C.+season&prop=wikitext&format=json&origin=*: HTTP 429"
+  },
+  {
+    "season": "2017",
+    "team": "Bali United",
+    "pageTitle": "2017 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2017_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2017_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2017",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "2017 Bhayangkara F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2017_Bhayangkara_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2017_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found after filtering non-player table notes."
+  },
+  {
+    "season": "2017",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Madura United",
+    "pageTitle": "2017 Madura United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2017_Madura_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2017_season",
+    "status": "imported",
+    "players": 24,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2017",
+    "team": "Mitra Kukar",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Persegres",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Persela",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Perseru",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Persib",
+    "pageTitle": "2017 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2017_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2017_season",
+    "status": "imported",
+    "players": 25,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2017",
+    "team": "Persiba Balikpapan",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Persija",
+    "pageTitle": "2017 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2017_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2017_season",
+    "status": "imported",
+    "players": 26,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2017",
+    "team": "Persipura Jayapura",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "PS TNI",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Semen Padang",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2017",
+    "team": "Sriwijaya FC",
+    "pageTitle": "2017 Sriwijaya F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2017_Sriwijaya_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2017_season",
+    "status": "imported",
+    "players": 27,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "Arema",
+    "pageTitle": "2018 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 30,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "Bali United",
+    "pageTitle": "2018 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2018",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2018",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "2018 Bhayangkara F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Bhayangkara_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 26,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "Borneo Samarinda",
+    "pageTitle": "2018 Borneo F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Borneo_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 27,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "Madura United",
+    "pageTitle": "2018 Madura United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Madura_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "Wikipedia request failed for https://en.wikipedia.org/w/api.php?action=parse&page=2018+Madura+United+F.C.+season&prop=wikitext&format=json&origin=*: HTTP 429"
+  },
+  {
+    "season": "2018",
+    "team": "Mitra Kukar",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2018",
+    "team": "Persebaya",
+    "pageTitle": "2018 Persebaya Surabaya season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Persebaya_Surabaya_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 26,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "Persela",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2018",
+    "team": "Perseru",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2018",
+    "team": "Persib",
+    "pageTitle": "2018 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 32,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "Persija",
+    "pageTitle": "2018 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 32,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "Persipura Jayapura",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2018",
+    "team": "PS TIRA",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2018",
+    "team": "PSIS",
+    "pageTitle": "2018 PSIS Semarang season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_PSIS_Semarang_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 30,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "PSM",
+    "pageTitle": "2018 PSM Makassar season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_PSM_Makassar_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 29,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2018",
+    "team": "PSMS Medan",
+    "pageTitle": "2018 PSMS Medan season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_PSMS_Medan_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found after filtering non-player table notes."
+  },
+  {
+    "season": "2018",
+    "team": "Sriwijaya FC",
+    "pageTitle": "2018 Sriwijaya F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2018_Sriwijaya_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2018_season",
+    "status": "imported",
+    "players": 48,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2019",
+    "team": "Arema",
+    "pageTitle": "2019 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2019_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2019_season",
+    "status": "imported",
+    "players": 33,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2019",
+    "team": "Bali United",
+    "pageTitle": "2019 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2019_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2019_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2019",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Kalteng Putra",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Madura United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Persebaya",
+    "pageTitle": "2019 Persebaya Surabaya season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2019_Persebaya_Surabaya_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2019_season",
+    "status": "imported",
+    "players": 2,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2019",
+    "team": "Persela",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Perseru Badak Lampung",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Persib",
+    "pageTitle": "2019 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2019_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2019_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "Wikipedia request failed for https://en.wikipedia.org/w/api.php?action=parse&page=2019+Persib+Bandung+season&prop=wikitext&format=json&origin=*: HTTP 429"
+  },
+  {
+    "season": "2019",
+    "team": "Persija",
+    "pageTitle": "2019 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2019_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2019_season",
+    "status": "imported",
+    "players": 30,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2019",
+    "team": "Persipura Jayapura",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "PSS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "PSIS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Semen Padang",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2019",
+    "team": "Tira Persikabo",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Arema",
+    "pageTitle": "2020 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2020_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2020_season",
+    "status": "imported",
+    "players": 27,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2020",
+    "team": "Bali United",
+    "pageTitle": "2020 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2020_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2020_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2020",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Madura United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Persebaya",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Persela",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Persib",
+    "pageTitle": "2020 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2020_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2020_season",
+    "status": "imported",
+    "players": 26,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2020",
+    "team": "Persija",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Persik",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Persipura Jayapura",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Persiraja Banda Aceh",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Persita",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "PSS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "PSIS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2020",
+    "team": "Tira Persikabo",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Arema",
+    "pageTitle": "2021–22 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2021%E2%80%9322_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2021%E2%80%9322_season",
+    "status": "imported",
+    "players": 34,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2021/22",
+    "team": "Bali United",
+    "pageTitle": "2021–22 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2021%E2%80%9322_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2021%E2%80%9322_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2021/22",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Madura United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persebaya",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persela",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persib",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persija",
+    "pageTitle": "2021–22 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2021%E2%80%9322_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2021%E2%80%9322_season",
+    "status": "imported",
+    "players": 33,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persik",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persipura Jayapura",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persiraja Banda Aceh",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Persita",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "PSS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "PSIS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2021/22",
+    "team": "Tira Persikabo",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Arema",
+    "pageTitle": "2022–23 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2022%E2%80%9323_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2022%E2%80%9323_season",
+    "status": "imported",
+    "players": 32,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2022/23",
+    "team": "Bali United",
+    "pageTitle": "2022–23 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2022%E2%80%9323_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2022%E2%80%9323_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2022/23",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Dewa United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Madura United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Persebaya",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Persib",
+    "pageTitle": "2022–23 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2022%E2%80%9323_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2022%E2%80%9323_season",
+    "status": "imported",
+    "players": 31,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2022/23",
+    "team": "Persija",
+    "pageTitle": "2022–23 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2022%E2%80%9323_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2022%E2%80%9323_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "Wikipedia request failed for https://en.wikipedia.org/w/api.php?action=parse&page=2022%E2%80%9323+Persija+Jakarta+season&prop=wikitext&format=json&origin=*: HTTP 429"
+  },
+  {
+    "season": "2022/23",
+    "team": "Persik",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Persis",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Persita",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "PSS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "PSIS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "RANS Nusantara",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2022/23",
+    "team": "Tira Persikabo",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Arema",
+    "pageTitle": "2023–24 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2023%E2%80%9324_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2023%E2%80%9324_season",
+    "status": "imported",
+    "players": 25,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2023/24",
+    "team": "Bali United",
+    "pageTitle": "2023–24 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2023%E2%80%9324_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2023%E2%80%9324_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2023/24",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Dewa United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Madura United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Persebaya",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Persib",
+    "pageTitle": "2023–24 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2023%E2%80%9324_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2023%E2%80%9324_season",
+    "status": "imported",
+    "players": 33,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2023/24",
+    "team": "Persija",
+    "pageTitle": "2023–24 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2023%E2%80%9324_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2023%E2%80%9324_season",
+    "status": "imported",
+    "players": 28,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2023/24",
+    "team": "Persik",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Persis",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Persita",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "Persikabo 1973",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "PSS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "PSIS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2023/24",
+    "team": "RANS Nusantara",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Arema",
+    "pageTitle": "2024–25 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2024%E2%80%9325_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2024%E2%80%9325_season",
+    "status": "imported",
+    "players": 30,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2024/25",
+    "team": "Bali United",
+    "pageTitle": "2024–25 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2024%E2%80%9325_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2024%E2%80%9325_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "No clear squad/player section found."
+  },
+  {
+    "season": "2024/25",
+    "team": "Barito Putera",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Dewa United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Madura United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Malut United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Persebaya",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Persib",
+    "pageTitle": "2024–25 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2024%E2%80%9325_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2024%E2%80%9325_season",
+    "status": "imported",
+    "players": 32,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2024/25",
+    "team": "Persija",
+    "pageTitle": "2024–25 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2024%E2%80%9325_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2024%E2%80%9325_season",
+    "status": "imported",
+    "players": 29,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2024/25",
+    "team": "Persik",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Persis",
+    "pageTitle": "2024–25 Persis Solo season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2024%E2%80%9325_Persis_Solo_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2024%E2%80%9325_season",
+    "status": "imported",
+    "players": 25,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2024/25",
+    "team": "Persita",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "PSBS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "PSIS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "PSS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2024/25",
+    "team": "Semen Padang",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Arema",
+    "pageTitle": "2025–26 Arema F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2025%E2%80%9326_Arema_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2025%E2%80%9326_season",
+    "status": "imported",
+    "players": 37,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2025/26",
+    "team": "Bali United",
+    "pageTitle": "2025–26 Bali United F.C. season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2025%E2%80%9326_Bali_United_F.C._season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2025%E2%80%9326_season",
+    "status": "needs-review",
+    "players": 0,
+    "notes": "Wikipedia request failed for https://en.wikipedia.org/w/api.php?action=parse&page=2025%E2%80%9326+Bali+United+F.C.+season&prop=wikitext&format=json&origin=*: HTTP 429"
+  },
+  {
+    "season": "2025/26",
+    "team": "Bhayangkara Presisi",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Borneo Samarinda",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Dewa United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Madura United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Malut United",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Persebaya",
+    "pageTitle": "2025–26 Persebaya Surabaya season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2025%E2%80%9326_Persebaya_Surabaya_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2025%E2%80%9326_season",
+    "status": "imported",
+    "players": 33,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2025/26",
+    "team": "Persib",
+    "pageTitle": "2025–26 Persib Bandung season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2025%E2%80%9326_Persib_Bandung_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2025%E2%80%9326_season",
+    "status": "imported",
+    "players": 35,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2025/26",
+    "team": "Persija",
+    "pageTitle": "2025–26 Persija Jakarta season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2025%E2%80%9326_Persija_Jakarta_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2025%E2%80%9326_season",
+    "status": "imported",
+    "players": 31,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2025/26",
+    "team": "Persijap",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Persik",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Persis",
+    "pageTitle": "2025–26 Persis Solo season",
+    "sourceUrl": "https://en.wikipedia.org/wiki/2025%E2%80%9326_Persis_Solo_season",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category%3AIndonesian_football_clubs_2025%E2%80%9326_season",
+    "status": "imported",
+    "players": 48,
+    "notes": "Imported from Wikipedia squad section."
+  },
+  {
+    "season": "2025/26",
+    "team": "Persita",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "PSBS",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "PSIM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "PSM",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  },
+  {
+    "season": "2025/26",
+    "team": "Semen Padang",
+    "pageTitle": "",
+    "sourceUrl": "",
+    "sourceCategory": "https://en.wikipedia.org/wiki/Category:Indonesian_football_club_seasons_by_year",
+    "status": "missing",
+    "players": 0,
+    "notes": "No matching Wikipedia season page in Indonesian football club seasons category."
+  }
+]

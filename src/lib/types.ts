@@ -1,5 +1,6 @@
 export type PlayerGroup = "GK" | "DEF" | "MID" | "FWD";
 export type PlayerDataStatus = "verified" | "manual" | "generated";
+export type PlayerReviewStatus = "reviewed" | "needs-review";
 
 export type FormationSlot = {
   id: string;
@@ -21,6 +22,12 @@ export type PlayerSeason = {
   stamina: number;
   dataStatus: PlayerDataStatus;
   generated?: boolean;
+  positionDetail?: string;
+  nationality?: string;
+  reviewStatus?: PlayerReviewStatus;
+  source?: string;
+  sourceTitle?: string;
+  note?: string;
 };
 
 export type GameMode = "normal" | "hard";

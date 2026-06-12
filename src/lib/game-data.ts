@@ -1,5 +1,6 @@
 import type { FormationSlot, PlayerDataStatus, PlayerGroup, PlayerSeason } from "./types";
 import manualPlayerSeasons from "@/data/player-seasons.manual.json";
+import wikipediaLiga1PlayerSeasons from "@/data/player-seasons.wikipedia.liga1.json";
 
 export const formations: Record<string, FormationSlot[]> = {
   "433": [
@@ -268,8 +269,28 @@ const manualJsonPlayers: PlayerSeason[] = manualPlayerSeasons.map((player) => {
   };
 });
 
+const wikipediaLiga1Players: PlayerSeason[] = (wikipediaLiga1PlayerSeasons as unknown as Array<Record<string, unknown>>).map((player) => ({
+  id: textValue(player.id),
+  name: textValue(player.name),
+  team: normalizeTeamName(textValue(player.team)),
+  season: textValue(player.season),
+  group: playerGroupValue(player.group),
+  attack: numberValue(player.attack),
+  defense: numberValue(player.defense),
+  creative: numberValue(player.creative),
+  stamina: numberValue(player.stamina),
+  dataStatus: "verified",
+  positionDetail: textValue(player.positionDetail),
+  nationality: textValue(player.nationality),
+  reviewStatus: player.reviewStatus === "reviewed" ? "reviewed" : "needs-review",
+  source: textValue(player.source),
+  sourceTitle: textValue(player.sourceTitle),
+  note: textValue(player.note),
+}));
+
 export const players: PlayerSeason[] = mergePlayerData([
-  ...buildRosterFillers([...seedPlayers, ...manualJsonPlayers]),
+  ...buildRosterFillers([...seedPlayers, ...manualJsonPlayers, ...wikipediaLiga1Players]),
+  ...wikipediaLiga1Players,
   ...seedPlayers,
   ...manualJsonPlayers,
 ]);
@@ -314,6 +335,18 @@ function mergePlayerData(items: PlayerSeason[]) {
 
 function normalizeTeamName(team: string) {
   return teamNameAliases[team] ?? team;
+}
+
+function textValue(value: unknown) {
+  return typeof value === "string" ? value : "";
+}
+
+function numberValue(value: unknown) {
+  return typeof value === "number" && Number.isFinite(value) ? value : 0;
+}
+
+function playerGroupValue(value: unknown): PlayerGroup {
+  return value === "GK" || value === "DEF" || value === "MID" || value === "FWD" ? value : "MID";
 }
 
 function buildRosterFillers(existingPlayers: PlayerSeason[]) {
