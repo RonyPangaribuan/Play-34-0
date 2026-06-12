@@ -33,10 +33,11 @@ export function PlayerChoice({ player, hideRatings, ratingMode, selected, slotOp
           {hideRatings ? <span className="slot-chip muted">OVR ?</span> : <span className="slot-chip muted">OVR {playerOverall(player, ratingMode)}</span>}
         </div>
       </div>
-      <div className="slot-fit-row">
-        <span>{canDraft ? "Pilih pemain, lalu tentukan slot posisi." : "Slot posisi ini sudah penuh"}</span>
-        {player.dataStatus === "generated" && <small>Roster pelengkap</small>}
-      </div>
+      {player.dataStatus === "generated" && (
+        <div className="slot-fit-row">
+          <small>Roster pelengkap</small>
+        </div>
+      )}
     </button>
   );
 }

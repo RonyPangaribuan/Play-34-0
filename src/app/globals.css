@@ -823,7 +823,7 @@ h2 {
 }
 
 .draft-screen {
-  width: min(100%, 760px);
+  width: min(100%, 1180px);
   margin: 0 auto;
 }
 
@@ -854,8 +854,8 @@ h2 {
 
 .draft-layout {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
+  grid-template-columns: minmax(300px, 390px) minmax(0, 1fr);
+  gap: 24px;
   align-items: start;
 }
 
@@ -1342,11 +1342,13 @@ button.slot-pill {
 .pitch-panel-compact {
   display: flex;
   justify-content: center;
+  position: sticky;
+  top: 16px;
 }
 
 .pitch-panel-compact .pitch {
-  width: min(100%, 520px);
-  height: clamp(420px, 72vw, 570px);
+  width: min(100%, 390px);
+  height: clamp(440px, 58vh, 560px);
 }
 
 .pitch {
@@ -1677,6 +1679,15 @@ button.slot-pill {
 
   .pitch {
     aspect-ratio: 7 / 10;
+  }
+
+  .pitch-panel-compact {
+    position: static;
+  }
+
+  .pitch-panel-compact .pitch {
+    width: min(100%, 420px);
+    height: clamp(400px, 70vw, 520px);
   }
 
   .setup-screen {
