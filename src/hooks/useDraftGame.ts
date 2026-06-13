@@ -39,7 +39,6 @@ export function useDraftGame() {
   const metrics = useMemo(() => teamMetrics(lineup, ratingMode), [lineup, ratingMode]);
   const hideRatings = (difficulty === "hard" || !showRatings) && !ratingRevealed;
   const complete = formation.length > 0 && draftedCount === formation.length;
-  const ratingLabel = hideRatings ? "Rating ?" : `Rating ${metrics.rating}`;
 
   function resetDraft(nextFormation = formationKey, nextDifficulty = difficulty) {
     setFormationKey(nextFormation);
@@ -147,7 +146,6 @@ export function useDraftGame() {
     hideRatings,
     complete,
     rerollsLeft,
-    ratingLabel,
     changeFormation,
     changeDifficulty,
     setShowRatings,

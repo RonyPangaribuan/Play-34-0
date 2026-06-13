@@ -22,7 +22,7 @@ export type DraftScreenProps = {
   onSpin: () => void;
   onDraft: (player: PlayerSeason, slotId?: string) => void;
   onSimulate: () => void;
-  onBackToSetup: () => void;
+  onResetGame: () => void;
 };
 
 export function DraftScreen({
@@ -40,7 +40,7 @@ export function DraftScreen({
   onSpin,
   onDraft,
   onSimulate,
-  onBackToSetup,
+  onResetGame,
 }: DraftScreenProps) {
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
@@ -55,7 +55,13 @@ export function DraftScreen({
     () => spin?.choices.find((player) => player.id === selectedPlayerId) ?? null,
     [selectedPlayerId, spin],
   );
+  const displayedChoices = useMemo(() => {
+    if (!spin) return [];
+    if (hideRatings) return spin.choices;
+    return [...spin.choices].sort((a, b) => playerOverall(b, ratingMode) - playerOverall(a, ratingMode));
+  }, [hideRatings, ratingMode, spin]);
   const overallRows = useMemo(() => buildOverallRows(lineup, ratingMode), [lineup, ratingMode]);
+  const completeRows = useMemo(() => buildSquadRows(formation, lineup), [formation, lineup]);
 
   useEffect(() => {
     setSelectedPlayerId(null);
@@ -92,107 +98,142 @@ export function DraftScreen({
 
   return (
     <section className="draft-screen">
-      <div className="draft-toolbar">
-        <button className="ghost-button" type="button" onClick={onBackToSetup}>Ubah setup</button>
-        <div className="mini-metrics">
-          <span>Formasi {formationKey}</span>
-          <span>{draftedCount}/11 pemain</span>
-          <span>Reroll {rerollsLeft}</span>
-          <span>{hideRatings ? "Rating ?" : `Rating ${metrics.rating}`}</span>
-        </div>
-      </div>
-
       <div className="draft-layout">
-        <Pitch formation={formation} lineup={lineup} compact />
+        <div className="draft-formation-column">
+          <FormationStatusCard
+            draftedCount={draftedCount}
+            formationKey={formationKey}
+            maxRerolls={getMaxRerolls(rerollsLeft, spin)}
+            onReset={onResetGame}
+            rerollsLeft={rerollsLeft}
+          />
+          <Pitch formation={formation} lineup={lineup} compact />
+          {draftedCount > 0 && <OverallPanel rating={metrics.rating} rows={overallRows} />}
+        </div>
 
         <aside className="draft-panel" aria-label="Draft controls">
-          <OverallPanel rating={metrics.rating} rows={overallRows} />
-
-          <div className="slot-card">
-            <div className="slot-head">
-              <p className="eyebrow">Slot</p>
-              <span id="positionBadge">{spinRule === "team" ? "TIM" : spin?.slotLabel?.replace(/[0-9]/g, "").slice(0, 3).toUpperCase() || "SET"}</span>
-            </div>
-            <div className="reel">
-              {isSpinning && spinPreview ? (
-                <div className="spin-preview" aria-live="polite">
-                  <div>
-                    <span>Klub</span>
-                    <strong>{spinPreview.team}</strong>
+          {complete ? (
+            <SquadCompletePanel
+              formationKey={formationKey}
+              metrics={metrics}
+              rows={completeRows}
+              onSimulate={onSimulate}
+            />
+          ) : (
+            <>
+              {!spin && (
+                <div className="spin-card">
+                  <div className={`spin-fields ${isSpinning ? "is-spinning" : ""}`} aria-live="polite">
+                    <div className="spin-field">
+                      <span>Club</span>
+                      <strong><i>{isSpinning ? spinPreview?.team ?? "" : ""}</i></strong>
+                    </div>
+                    <b>x</b>
+                    <div className="spin-field">
+                      <span>Season</span>
+                      <strong><i>{isSpinning ? spinPreview?.season ?? "" : ""}</i></strong>
+                    </div>
                   </div>
-                  <b>x</b>
-                  <div>
-                    <span>Musim</span>
-                    <strong>{spinPreview.season}</strong>
-                  </div>
+                  <button className="primary-button spin-wheel-button" type="button" disabled={spinButtonDisabled} onClick={startSpin}>
+                    {isSpinning ? "Spinning..." : "Spin the Wheel"}
+                  </button>
+                  <p>{spinRule === "team" ? "Spin untuk squad" : "Spin untuk posisi"}</p>
                 </div>
-              ) : spinIsEmpty ? (
-                <span>Tidak ada kandidat<br />coba lagi atau ubah setup</span>
-              ) : spin ? (
-                <span>{spin.team}<br />{spin.season}<br />{spin.slotLabel}</span>
-              ) : (
-                <span>{complete ? "XI siap disimulasikan" : "Tekan Spin"}</span>
               )}
-            </div>
-            <button className="primary-button" type="button" disabled={spinButtonDisabled} onClick={startSpin}>
-              {isSpinning ? "Memutar..." : spinIsEmpty && rerollsLeft > 0 ? "Reroll Slot" : spinIsEmpty ? "Ubah setup dulu" : spin ? "Reroll Slot" : "Spin Slot"}
-            </button>
-          </div>
 
-          <div className="choice-list" aria-live="polite">
-            {!spin && (
-              <div className="empty-state">
-                {complete
-                  ? "Draft selesai. Jalankan simulasi untuk melihat hasil musim."
-                  : "Wheel mengambil klub Liga 1 dan musim 2017-2026. Pilih pemain setelah spin berhenti."}
+              <div className="choice-list" aria-live="polite">
+                {spin && (
+                  <>
+                    <div className="choice-summary-row">
+                      <div className="choice-summary">
+                        <span>{spinRule === "team" ? "Squad spin" : "Position spin"}</span>
+                        <strong>{isSpinning ? spinPreview?.team ?? spin.team : spin.team || "-"} <em>{isSpinning ? spinPreview?.season ?? spin.season : spin.season || ""}</em></strong>
+                        <small>{isSpinning ? "memutar..." : `${spin.choices.length} pemain`}</small>
+                      </div>
+                      {rerollsLeft > 0 && (
+                        <button className="choice-reroll-button" type="button" disabled={spinButtonDisabled} onClick={startSpin}>
+                          {isSpinning ? "Spinning..." : `Reroll (${rerollsLeft})`}
+                        </button>
+                      )}
+                    </div>
+                    {isSpinning && (
+                      <div className="empty-state compact">
+                        Wheel sedang memutar. Pilihan pemain akan muncul setelah spin berhenti.
+                      </div>
+                    )}
+                    {!isSpinning && spinIsEmpty && (
+                      <div className="empty-state">
+                        {emptySpinMessage}
+                      </div>
+                    )}
+                    {!isSpinning && selectedPlayer && (
+                      <PlacementPanel
+                        formation={formation}
+                        lineup={lineup}
+                        player={selectedPlayer}
+                        spin={spin}
+                        spinRule={spinRule}
+                        onCancel={() => setSelectedPlayerId(null)}
+                        onDraft={draftIntoSlot}
+                      />
+                    )}
+                    {!isSpinning && displayedChoices.map((player) => {
+                      const slotOptions = slotOptionsForPlayer({ formation, lineup, player, spin, spinRule });
+                      return (
+                        <PlayerChoice
+                          key={player.id}
+                          player={player}
+                          hideRatings={hideRatings}
+                          ratingMode={ratingMode}
+                          selected={selectedPlayerId === player.id}
+                          slotOptions={slotOptions.filter((slot) => slot.available)}
+                          onSelect={setSelectedPlayerId}
+                        />
+                      );
+                    })}
+                  </>
+                )}
               </div>
-            )}
-            {spin && (
-              <>
-                <div className="choice-summary">
-                  <span>{spinRule === "team" ? "Squad spin" : "Position spin"}</span>
-                  <strong>{spin.team || "-"} <em>{spin.season || ""}</em></strong>
-                  <small>{spin.choices.length} pemain</small>
-                </div>
-                {spinIsEmpty && (
-                  <div className="empty-state">
-                    {emptySpinMessage}
-                  </div>
-                )}
-                {selectedPlayer && (
-                  <PlacementPanel
-                    formation={formation}
-                    lineup={lineup}
-                    player={selectedPlayer}
-                    spin={spin}
-                    spinRule={spinRule}
-                    onCancel={() => setSelectedPlayerId(null)}
-                    onDraft={draftIntoSlot}
-                  />
-                )}
-                {spin.choices.map((player) => {
-                  const slotOptions = slotOptionsForPlayer({ formation, lineup, player, spin, spinRule });
-                  return (
-                    <PlayerChoice
-                      key={player.id}
-                      player={player}
-                      hideRatings={hideRatings}
-                      ratingMode={ratingMode}
-                      selected={selectedPlayerId === player.id}
-                      slotOptions={slotOptions.filter((slot) => slot.available)}
-                      onSelect={setSelectedPlayerId}
-                    />
-                  );
-                })}
-              </>
-            )}
-          </div>
-
-          <button className="simulate-button" type="button" disabled={!complete} onClick={onSimulate}>
-            Simulasi 34 Laga
-          </button>
+            </>
+          )}
         </aside>
       </div>
+    </section>
+  );
+}
+
+function FormationStatusCard({
+  draftedCount,
+  formationKey,
+  maxRerolls,
+  onReset,
+  rerollsLeft,
+}: {
+  draftedCount: number;
+  formationKey: string;
+  maxRerolls: number;
+  onReset: () => void;
+  rerollsLeft: number;
+}) {
+  return (
+    <section className="formation-status-card" aria-label="Status formasi">
+      <div>
+        <span>Formation</span>
+        <strong>{formatFormationKey(formationKey)}</strong>
+      </div>
+      <div className="formation-status-meta">
+        <span>Rerolls:</span>
+        <div className="reroll-dots" aria-label={`${rerollsLeft} reroll tersisa`}>
+          {Array.from({ length: maxRerolls }).map((_, index) => (
+            <i className={index < rerollsLeft ? "active" : ""} key={index} />
+          ))}
+        </div>
+        <strong>{draftedCount}/11</strong>
+        <button aria-label="Ulang dari awal" className="formation-reset-button" type="button" onClick={onReset}>
+          &#8635;
+        </button>
+      </div>
+      <div className="formation-status-line" />
     </section>
   );
 }
@@ -219,6 +260,81 @@ function OverallPanel({ rating, rows }: { rating: number; rows: OverallRow[] }) 
         ))}
       </div>
     </section>
+  );
+}
+
+function SquadCompletePanel({
+  formationKey,
+  metrics,
+  rows,
+  onSimulate,
+}: {
+  formationKey: string;
+  metrics: TeamMetrics;
+  rows: SquadRow[];
+  onSimulate: () => void;
+}) {
+  const projection = buildProjection(metrics.rating);
+
+  return (
+    <div className="squad-complete-panel">
+      <section className="your-xi-card" aria-label="XI yang sudah dipilih">
+        <div className="your-xi-head">
+          <h2>XI Kamu</h2>
+          <p>{formatFormationKey(formationKey)} - Overall {metrics.rating}</p>
+        </div>
+        <div className="your-xi-list">
+          {rows.map(({ player, slot }) => (
+            <div className="xi-row" key={slot.id}>
+              <span className={`slot-chip chip-${player.group.toLowerCase()}`}>{slotShortLabel(slot)}</span>
+              <strong>{player.name}</strong>
+              <span className="xi-row-meta">
+                <i style={{ backgroundColor: teamColor(player.team) }} />
+                {teamCode(player.team)} {player.season}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="squad-finish-card" aria-label="Proyeksi setelah skuad lengkap">
+        <div className="trophy-mark" aria-hidden="true" />
+        <h2>Skuad Lengkap</h2>
+        <p>Inilah susunan XI kamu. Simulasikan musim dan lihat sejauh mana tim ini bisa melaju.</p>
+        <div className="projection-card">
+          <div className="projection-head">
+            <span>Proyeksi pra-musim</span>
+            <small>Berdasarkan kekuatan XI</small>
+          </div>
+          <div className="projection-grid">
+            <div>
+              <span>Prediksi finis</span>
+              <strong>Ke-{projection.finish}</strong>
+            </div>
+            <div>
+              <span>Ekspektasi poin</span>
+              <strong>{projection.points}</strong>
+            </div>
+          </div>
+          <div className="odds-list">
+            {projection.odds.map((row) => (
+              <div className="odds-row" key={row.label}>
+                <div>
+                  <span>{row.label}</span>
+                  <strong>{formatPercent(row.value)}</strong>
+                </div>
+                <div className="odds-track" aria-hidden="true">
+                  <span className={`odds-${row.tone}`} style={{ width: `${row.value}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button className="primary-button simulate-season-button" type="button" onClick={onSimulate}>
+          Simulasi Musim -&gt;
+        </button>
+      </section>
+    </div>
   );
 }
 
@@ -314,6 +430,16 @@ function randomSpinPreview() {
   return { team, season };
 }
 
+function formatFormationKey(value: string) {
+  return value.split("").join("-");
+}
+
+function getMaxRerolls(rerollsLeft: number, spin: SpinResult | null) {
+  if (rerollsLeft >= 3) return 3;
+  if (rerollsLeft >= 1 || spin) return Math.max(1, rerollsLeft);
+  return 0;
+}
+
 function buildOverallRows(lineup: Record<string, PlayerSeason>, ratingMode: RatingMode): OverallRow[] {
   const players = Object.values(lineup);
   return [
@@ -324,10 +450,68 @@ function buildOverallRows(lineup: Record<string, PlayerSeason>, ratingMode: Rati
   ];
 }
 
+function buildSquadRows(formation: FormationSlot[], lineup: Record<string, PlayerSeason>): SquadRow[] {
+  return formation.flatMap((slot) => {
+    const player = lineup[slot.id];
+    return player ? [{ slot, player }] : [];
+  });
+}
+
 function averageGroupOverall(players: PlayerSeason[], group: PlayerGroup, ratingMode: RatingMode) {
   const groupPlayers = players.filter((player) => player.group === group);
   if (!groupPlayers.length) return null;
   return Math.round(groupPlayers.reduce((sum, player) => sum + playerOverall(player, ratingMode), 0) / groupPlayers.length);
+}
+
+function buildProjection(rating: number) {
+  const normalized = clampNumber(rating || 0, 40, 92);
+  const finish = clampNumber(Math.round(18 - (normalized - 50) * 0.36), 1, 18);
+  const points = clampNumber(Math.round(20 + normalized * 0.42), 26, 86);
+  const winLeague = clampNumber((normalized - 75) * 0.22, 0.1, 72);
+  const topFour = clampNumber((normalized - 66) * 0.78, 2, 98);
+  const topSix = clampNumber((normalized - 58) * 1.18, 6, 99);
+  const topTen = clampNumber((normalized - 45) * 1.75, 15, 99);
+  const relegation = clampNumber(44 - (normalized - 45) * 1.25, 0.2, 52);
+
+  return {
+    finish,
+    points,
+    odds: [
+      { label: "Juara liga", value: winLeague, tone: "gold" },
+      { label: "Top 4", value: topFour, tone: "mint" },
+      { label: "Top 6", value: topSix, tone: "blue" },
+      { label: "Top 10", value: topTen, tone: "purple" },
+      { label: "Zona degradasi", value: relegation, tone: "red" },
+    ],
+  };
+}
+
+function clampNumber(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function formatPercent(value: number) {
+  return value < 1 ? `${value.toFixed(1)}%` : `${Math.round(value)}%`;
+}
+
+function slotShortLabel(slot: FormationSlot) {
+  return slot.id.replace(/[0-9]/g, "");
+}
+
+function teamCode(team: string) {
+  const words = team.split(/\s+/).filter(Boolean);
+  if (words.length > 1) {
+    return words.map((word) => word[0]).join("").slice(0, 3).toUpperCase();
+  }
+  return team.slice(0, 3).toUpperCase();
+}
+
+function teamColor(team: string) {
+  let hash = 0;
+  for (let index = 0; index < team.length; index += 1) {
+    hash = (hash * 31 + team.charCodeAt(index)) % 360;
+  }
+  return `hsl(${hash} 82% 58%)`;
 }
 
 type SlotOption = {
@@ -343,4 +527,9 @@ type OverallRow = {
   label: string;
   icon: string;
   value: number | null;
+};
+
+type SquadRow = {
+  slot: FormationSlot;
+  player: PlayerSeason;
 };

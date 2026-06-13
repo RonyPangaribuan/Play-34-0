@@ -147,25 +147,26 @@ export const seasonTeams: Record<string, string[]> = Object.fromEntries(
 
 export const liga1Teams2026 = seasonTeams["2025/26"];
 
+// Rating simulasi dibuat rapat agar hasil lebih ditentukan OVR XI draft, bukan gap besar antar klub lawan.
 export const teamPower2026: Record<string, number> = {
-  Persib: 84,
-  "Borneo Samarinda": 83,
-  Persija: 81,
-  "Dewa United": 79,
-  "Bali United": 78,
-  Persebaya: 78,
-  PSM: 77,
-  Arema: 76,
-  "Malut United": 76,
-  Persita: 74,
-  Persik: 74,
-  PSIM: 73,
+  Persib: 80,
+  "Borneo Samarinda": 79,
+  Persija: 78,
+  "Dewa United": 77,
+  "Bali United": 76,
+  Persebaya: 76,
+  PSM: 75,
+  Arema: 74,
+  "Malut United": 74,
+  Persita: 73,
+  Persik: 73,
+  PSIM: 72,
   Persis: 72,
   "Madura United": 72,
   "Bhayangkara Presisi": 71,
-  Persijap: 70,
-  PSBS: 68,
-  "Semen Padang": 67,
+  Persijap: 71,
+  PSBS: 70,
+  "Semen Padang": 70,
 };
 
 const seedPlayers: PlayerSeason[] = [

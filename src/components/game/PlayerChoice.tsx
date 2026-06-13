@@ -12,6 +12,7 @@ export type PlayerChoiceProps = {
 
 export function PlayerChoice({ player, hideRatings, ratingMode, selected, slotOptions, onSelect }: PlayerChoiceProps) {
   const canDraft = slotOptions.length > 0;
+  const overall = playerOverall(player, ratingMode);
 
   return (
     <button
@@ -21,7 +22,7 @@ export function PlayerChoice({ player, hideRatings, ratingMode, selected, slotOp
       onClick={() => onSelect(player.id)}
     >
       <div className="player-top">
-        <div className={`player-avatar avatar-${player.group.toLowerCase()}`}>?</div>
+        <div className={`player-avatar avatar-${player.group.toLowerCase()}`}>{hideRatings ? "?" : overall}</div>
         <div className="player-copy">
           <div className="player-name">{player.name}</div>
           <div className="player-meta">{player.nationality || `${player.team} | ${player.season}`}</div>
@@ -30,7 +31,6 @@ export function PlayerChoice({ player, hideRatings, ratingMode, selected, slotOp
           {slotOptions.map((slot) => (
             <span className={`slot-chip chip-${slot.group.toLowerCase()}`} key={slot.id}>{slot.shortLabel}</span>
           ))}
-          {hideRatings ? <span className="slot-chip muted">OVR ?</span> : <span className="slot-chip muted">OVR {playerOverall(player, ratingMode)}</span>}
         </div>
       </div>
       {player.dataStatus === "generated" && (

@@ -11,12 +11,7 @@ export default function GameClient() {
 
   return (
     <main className="app-shell">
-      <GameHeader
-        step={game.step}
-        draftedCount={game.draftedCount}
-        complete={game.complete}
-        ratingLabel={game.ratingLabel}
-      />
+      {game.step === "setup" && <GameHeader />}
 
       {game.step === "setup" && (
         <SetupScreen
@@ -56,13 +51,14 @@ export default function GameClient() {
           onSpin={game.spinSlot}
           onDraft={game.draftPlayer}
           onSimulate={game.runSimulation}
-          onBackToSetup={game.backToSetup}
+          onResetGame={game.resetGame}
         />
       )}
 
       {game.step === "result" && game.result && (
         <ResultScreen
           formation={game.formation}
+          formationKey={game.formationKey}
           lineup={game.lineup}
           result={game.result}
           rating={game.metrics.rating}
